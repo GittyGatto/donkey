@@ -21,11 +21,11 @@ public class ArticleTransformerService {
     }
 
     private ArticleDto getArticleDto(ArticleEntity ae) {
-        long articleId = ae.getArticleId();
-        String articleName = ae.getArticleName();
+        String uuid = ae.getArticleUuid();
+        String name = ae.getArticleName();
         String categoryName = ae.getCategory().getCategoryName();
 
-        return new ArticleDto(articleId, articleName, categoryName);
+        return new ArticleDto(uuid, name, categoryName);
     }
 
 }

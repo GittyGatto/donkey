@@ -1,32 +1,33 @@
 package com.henning.donkey.business.responseEnties;
 
 public class ArticleDto {
-    private long articleId;
-    private String articleName;
+    private String uuid;
+    private String name;
     private String categoryName;
 
-    public ArticleDto(){}
+    public ArticleDto() {
+    }
 
-    public ArticleDto(long articleId, String articleName, String categoryName) {
-        this.articleId = articleId;
-        this.articleName = articleName;
+    public ArticleDto(String uuid, String name, String categoryName) {
+        this.uuid = uuid;
+        this.name = name;
         this.categoryName = categoryName;
     }
 
-    public long getArticleId() {
-        return articleId;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setArticleId(long articleId) {
-        this.articleId = articleId;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
-    public String getArticleName() {
-        return articleName;
+    public String getName() {
+        return name;
     }
 
-    public void setArticleName(String articleName) {
-        this.articleName = articleName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCategoryName() {
