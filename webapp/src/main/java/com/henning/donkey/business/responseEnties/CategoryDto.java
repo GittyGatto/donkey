@@ -2,22 +2,23 @@ package com.henning.donkey.business.responseEnties;
 
 public class CategoryDto {
 
-    private String id;
+    private String uuid;
     private String name;
 
-    public CategoryDto(){}
+    public CategoryDto() {
+    }
 
-    public CategoryDto(String id, String name) {
-        this.id = id;
+    public CategoryDto(String uuid, String name) {
+        this.uuid = uuid;
         this.name = name;
     }
 
-    public String getId() {
-        return id;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getName() {
