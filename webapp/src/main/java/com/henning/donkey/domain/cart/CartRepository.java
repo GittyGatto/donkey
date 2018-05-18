@@ -9,10 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface CartRepository extends JpaRepository<CartEntity, Long> {
 
-    long count();
+    void deleteByCartUuid(String uuid);
 
-    CartEntity findByCartName(String cartName);
-
-    void deleteByCartName(String cartName);
-
+    CartEntity findByCartUuid(String uuid);
 }

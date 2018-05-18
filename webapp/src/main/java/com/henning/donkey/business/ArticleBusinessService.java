@@ -22,9 +22,6 @@ public class ArticleBusinessService {
     private CartArticleRepository cartArticleRepository;
 
     @Autowired
-    private CartArticleBusinessService cartArticleBusinessService;
-
-    @Autowired
     private CartRepository cartRepository;
 
     @Autowired
@@ -33,22 +30,17 @@ public class ArticleBusinessService {
     @Autowired
     private CategoryBusinessService categoryBusinessService;
 
+    /*
     public List<CartArticleDto> getCartArticles(String cartName) {
         CartEntity cartEntity = this.cartRepository.findByCartName(cartName);
         List<CartArticleEntity> cartArticleEntities = this.cartArticleRepository.findByCart(cartEntity);
         return toCartArticles(cartArticleEntities);
     }
+    */
 
     public List<ArticleDto> getArticles() {
         List<ArticleEntity> articleEntities = this.articleRepository.findAll();
         return toArticles(articleEntities);
-    }
-
-    public List<CartArticleDto> saveCartArticles(List<CartArticleDto> request) {
-        List<CartArticleEntity> cartArticleEntities = toCartArticleEntity(request);
-        cartArticleBusinessService.saveCartArticles(cartArticleEntities);
-        List<CartArticleDto> cartArticleDtos = toCartArticles(cartArticleEntities);
-        return cartArticleDtos;
     }
 
     public List<ArticleDto> getCategoryArticles(String categoryName) {
@@ -57,24 +49,6 @@ public class ArticleBusinessService {
         } else {
             return getFilteredCategoryArticles(categoryName);
         }
-    }
-
-    private List<CartArticleEntity> toCartArticleEntity(List<CartArticleDto> request) {
-        List<CartArticleEntity> cartArticleEntities = new ArrayList<>();
-        request.stream().forEach(r -> {
-            long articleId = r.getArticleId();
-            long cartId = r.getCartId();
-            long amount = r.getAmount();
-            String cartArticleUuid = r.getCartArticleUuid();
-
-            ArticleEntity articleEntity = articleRepository.findOne(articleId);
-            CartEntity cartArticleEntity = cartRepository.findOne(cartId);
-
-            CartArticleEntity cartArticle = new CartArticleEntity(cartArticleUuid, cartArticleEntity, articleEntity, amount);
-            cartArticleEntities.add(cartArticle);
-        });
-
-        return cartArticleEntities;
     }
 
     private List<ArticleDto> getAllArticles() {
@@ -101,22 +75,4 @@ public class ArticleBusinessService {
         });
         return articleDtoList;
     }
-
-    private List<CartArticleDto> toCartArticles(List<CartArticleEntity> cartArticleEntities) {
-        List<CartArticleDto> cartArticleDtos = new ArrayList<>();
-        cartArticleEntities.stream().forEach(ca -> {
-
-            long articleId = ca.getArticle().getArticleId();
-            String articleName = ca.getArticle().getArticleName();
-            String categoryName = ca.getArticle().getCategory().getCategoryName();
-            long amount = ca.getAmount();
-            long cartId = ca.getCart().getCartId();
-            String cartUuid = ca.getCartArticleUuid();
-
-            CartArticleDto cartArticleDto = new CartArticleDto(articleId, cartUuid, articleName, categoryName, amount, cartId);
-            cartArticleDtos.add(cartArticleDto);
-        });
-        return cartArticleDtos;
-    }
-
 }

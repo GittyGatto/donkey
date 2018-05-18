@@ -17,6 +17,7 @@ public class ArticleResource {
     @Autowired
     private ArticleBusinessService articleBusinessService;
 
+    /*
     @RequestMapping(value = "/api/articles/{cartName}", method = RequestMethod.GET)
     public
     @ResponseBody
@@ -24,6 +25,7 @@ public class ArticleResource {
         List<CartArticleDto> articleDtoList = this.articleBusinessService.getCartArticles(cartName);
         return new ResponseEntity<>(articleDtoList, HttpStatus.OK);
     }
+    */
 
     @RequestMapping(value = "/api/articles/", method = RequestMethod.GET)
     public
@@ -33,6 +35,7 @@ public class ArticleResource {
         return new ResponseEntity<>(articleDtoList, HttpStatus.OK);
     }
 
+    /*
     @RequestMapping(value = "/api/articles", method = RequestMethod.POST)
     public
     @ResponseBody
@@ -40,5 +43,6 @@ public class ArticleResource {
         List<CartArticleDto> articleDtos = this.articleBusinessService.saveCartArticles(request);
         return new ResponseEntity<>(articleDtos, HttpStatus.OK);
     }
+    */
 }
 
