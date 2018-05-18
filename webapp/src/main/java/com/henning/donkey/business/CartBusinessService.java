@@ -25,8 +25,8 @@ public class CartBusinessService {
 
     public CartDto saveCart(CartDto cartDto) {
         CartEntity cartEntity = cartTransformerService.toCartEntity(cartDto);
-        CartEntity savedEntity = cartRepository.save(cartEntity);
-        return cartTransformerService.toCartDto(savedEntity);
+        CartEntity storedCartEntity = cartRepository.save(cartEntity);
+        return cartTransformerService.toCartDto(storedCartEntity);
     }
 
     public void delete(String uuid) {
