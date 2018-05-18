@@ -1,0 +1,283 @@
+  <CartKeyInput value={state.data.cartKey}
+                              changeHandler={this._onCartKeyChanged}/>
+
+                <Select
+                    name="form-field-name"
+                    value={state.data.selectedCategory}
+                    onChange={(e) => this._onCategoryChange(e)}
+                    options={state.data.categoryOptions}
+                />
+
+                <Article articles={state.data.filteredArticles}
+                         changeHandler={(e, article) => this._onArticleClicked(e, article)}/>
+
+                <Cart purchase={state.data.purchase}
+                      resetHandler={this._onResetClicked}/>
+
+                <CartActionPanel
+                    resetHandler={this._onResetClicked}
+                    resetEnabled={state.data.resetEnabled}
+                    saveHandler={this._onSaveClicked}
+                    saveEnabled={state.data.saveEnabled}
+                />
+
+                <BucketKeyInput value={state.data.bucketKey}
+                                changeHandler={this._onBucketKeyChanged}/>
+                <BucketDataInput value={state.data.bucketValue}
+                                 changeHandler={this._onBucketValueChanged}/>
+
+
+
+
+
+            <MessagePanel message={state.data.message}
+                          messageType={state.data.messageType}/>
+
+            <BucketActionsPanel
+                publishHandler={this._onPublishClicked}
+                publishEnabled={state.data.publishEnabled}
+                fetchHandler={this._onFetchClicked}
+                fetchEnabled={state.data.fetchEnabled}
+            />
+            <StatusPanel maxBuckets={state.data.maxBuckets} freeBuckets={state.data.freeBuckets}/>
+            <footer className="row">
+                For more infos visit <a target="_blank" href="https://github.com/tmply/tmply" id="github-link">tmply
+                on
+                github</a>.
+            </footer>
+
+
+
+
+
+
+            saveCart: function saveCart(request, successCallback, errorCallback) {
+                    pre();
+                    var newRequest = {
+                        cartName: request.cartName,
+                        data: request.data
+                    };
+
+                    xhr({
+                        method: 'POST',
+                        uri: Config.getUrlFor('/carts'),
+                        json: true,
+                        body: newRequest
+                    }, function (err, resp, body) {
+                        post();
+                        if (resp.statusCode === 200) {
+                            successCallback(body);
+                        } else {
+                            errorCallback(resp);
+                        }
+                    });
+                },
+                fetchCart: function fetchCart(cartName, successCallback, errorCallback) {
+                    pre();
+                    xhr({
+                        uri: Config.getUrlFor('/carts/' + cartName),
+                        json: true
+                    }, function (err, resp, body) {
+                        post();
+                        if (resp.statusCode === 200) {
+                            var response = {
+                                cartName: cartName,
+                                data: (body.data, cartName)
+                            };
+
+                            successCallback(response);
+                        } else {
+                            errorCallback(resp);
+                        }
+                    });
+                }
+
+
+
+
+articles: [
+                {
+                    id: uuid.v4(),
+                    title: 'Apple Juice',
+                    category: 'Drink',
+                    btStyle: 'primary'
+                },
+                {
+                    id: uuid.v4(),
+                    title: 'Steak',
+                    category: 'Food',
+                    btStyle: 'danger'
+                },
+                {
+                    id: uuid.v4(),
+                    title: 'Salami',
+                    category: 'Food',
+                    btStyle: 'danger'
+                },
+                {
+                    id: uuid.v4(),
+                    title: 'Espresso',
+                    category: 'Drink',
+                    btStyle: 'primary'
+                },
+                {
+                    id: uuid.v4(),
+                    title: 'Papers',
+                    category: 'Smoke',
+                    btStyle: 'success'
+                },
+                {
+                    id: uuid.v4(),
+                    title: 'Filter',
+                    category: 'Smoke',
+                    btStyle: 'success'
+                }, {
+                    id: uuid.v4(),
+                    title: 'Milk',
+                    category: 'Drink',
+                    btStyle: 'primary'
+                },
+                {
+                    id: uuid.v4(),
+                    title: 'Beer',
+                    category: 'Drink',
+                    btStyle: 'primary'
+                },
+                {
+                    id: uuid.v4(),
+                    title: 'Apples',
+                    category: 'Food',
+                    btStyle: 'danger'
+                },
+                {
+                    id: uuid.v4(),
+                    title: 'Bananas',
+                    category: 'Food',
+                    btStyle: 'danger'
+                },
+                {
+                    id: uuid.v4(),
+                    title: 'Tobacco',
+                    category: 'Smoke',
+                    btStyle: 'success'
+                }
+            ],
+
+
+             categories: [
+                            {
+                                id: uuid.v4(),
+                                title: 'All',
+                                btStyle: 'primary'
+                            },
+                            {
+                                id: uuid.v4(),
+                                title: 'Drink',
+                                btStyle: 'primary'
+                            },
+                            {
+                                id: uuid.v4(),
+                                title: 'Food',
+                                btStyle: 'danger'
+                            },
+                            {
+                                id: uuid.v4(),
+                                title: 'Smoke',
+                                btStyle: 'success',
+                            }
+                        ],
+
+
+
+                            getArticels() {
+                                let articles = this.data.articles;
+                                let category = this.data.selectedCategory;
+                                let filteredArticles = [];
+
+                                if (category !== 'all') {
+                                    articles.forEach(function (element) {
+                                        if (element.category.toLowerCase() === category) {
+                                            filteredArticles.push(element)
+                                        }
+                                    });
+                                    this.data.filteredArticles = filteredArticles;
+                                } else {
+                                    this.data.filteredArticles = articles;
+                                }
+                            }
+
+
+
+    handleArticleAdded(ev) {
+        this.data.selectedArticle = ev.article;
+        this.addArticle();
+        this.update({});
+    }
+
+    filteredArticles: [
+                    {
+                        id: uuid.v4(),
+                        title: 'Apple Juice',
+                        category: 'Drink',
+                        btStyle: 'primary'
+                    },
+                    {
+                        id: uuid.v4(),
+                        title: 'Steak',
+                        category: 'Food',
+                        btStyle: 'danger'
+                    },
+                    {
+                        id: uuid.v4(),
+                        title: 'Salami',
+                        category: 'Food',
+                        btStyle: 'danger'
+                    },
+                    {
+                        id: uuid.v4(),
+                        title: 'Espresso',
+                        category: 'Drink',
+                        btStyle: 'primary'
+                    },
+                    {
+                        id: uuid.v4(),
+                        title: 'Papers',
+                        category: 'Smoke',
+                        btStyle: 'success'
+                    },
+                    {
+                        id: uuid.v4(),
+                        title: 'Filter',
+                        category: 'Smoke',
+                        btStyle: 'success'
+                    }, {
+                        id: uuid.v4(),
+                        title: 'Milk',
+                        category: 'Drink',
+                        btStyle: 'primary'
+                    },
+                    {
+                        id: uuid.v4(),
+                        title: 'Beer',
+                        category: 'Drink',
+                        btStyle: 'primary'
+                    },
+                    {
+                        id: uuid.v4(),
+                        title: 'Apples',
+                        category: 'Food',
+                        btStyle: 'danger'
+                    },
+                    {
+                        id: uuid.v4(),
+                        title: 'Bananas',
+                        category: 'Food',
+                        btStyle: 'danger'
+                    },
+                    {
+                        id: uuid.v4(),
+                        title: 'Tobacco',
+                        category: 'Smoke',
+                        btStyle: 'success'
+                    }
+                ],

@@ -1,0 +1,7 @@
+/frontend/node/
+.idea/
+*.iml
+*.iws
+target/
+node_modules/
+/webapp/public/
