@@ -14,11 +14,9 @@ public class ArticleBusinessService {
 
     @Autowired
     private ArticleTransformerService articleTransformerService;
-    @Autowired
-    private ArticleRepository articleRepository;
 
     @Autowired
-    private CategoryBusinessService categoryBusinessService;
+    private ArticleRepository articleRepository;
 
     public List<ArticleDto> getArticles() {
         List<ArticleEntity> articleEntities = this.articleRepository.findAll();

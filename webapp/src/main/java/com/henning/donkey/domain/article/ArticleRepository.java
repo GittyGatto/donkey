@@ -9,7 +9,6 @@ import java.util.List;
 
 public interface ArticleRepository extends JpaRepository<ArticleEntity, Long> {
 
-    List<ArticleEntity> findByCategory(CategoryEntity categoryEntity);
-
     ArticleEntity findByArticleUuid(String cartArticleUuid);
+
 }
