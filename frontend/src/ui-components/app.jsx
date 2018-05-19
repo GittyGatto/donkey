@@ -4,7 +4,6 @@ import '../../styles/index.scss';
 import uuid from 'uuid';
 import cartReset from '../actions/cart-reset-action'
 import addArticle from '../actions/add-article-action';
-import saveCartName from '../actions/save-cart-name-action';
 import newCart from "../actions/new-cart-action";
 import cartNameChanged from "../actions/cart-name-changed-action";
 import getCategoryArticles from '../actions/get-category-articles-action';
@@ -20,6 +19,7 @@ import CartNameInput from "./cartNameInput";
 import CartArticles from "./cartArticles";
 import Article from "./article";
 import CartSelection from "./cartSelection";
+import saveNewCart from "../actions/save-new-cart-action";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -60,8 +60,8 @@ export default class App extends React.Component {
     }
 
     _onSubmitClicked(ev) {
-        saveCartName({
-            data: {name: appStore.data.cartNameInput, uuid: uuid.v4()}
+        saveNewCart({
+            data: {name: appStore.data.cartNameInput, uuid: uuid.v4(), cartArticles: []}
         });
     }
 

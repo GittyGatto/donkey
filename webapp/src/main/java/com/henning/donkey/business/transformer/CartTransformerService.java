@@ -34,6 +34,6 @@ public class CartTransformerService {
 
     public CartEntity toCartEntity(CartDto cartDto) {
         List<CartArticleEntity> cartArticleEntities = cartArticleTransformerService.toCartArticles(cartDto);
-        return new CartEntity(cartDto.getName(), cartDto.getUuid(), cartArticleEntities);
+        return new CartEntity(cartDto.getUuid(), cartDto.getName(), cartArticleEntities);
     }
 }
