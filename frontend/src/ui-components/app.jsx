@@ -133,7 +133,6 @@ export default class App extends React.Component {
         if (renderPurchase) {
             purchase = <CartArticles className="form-field-name"
                                      purchase={state.data.purchase}
-                                     cartName={state.data.selectedCart}
                                      addHandler={(e, article) => this._onAddClicked(e, article)}
                                      removeOneHandler={(e, article) => this._onRemoveOneClicked(e, article)}
                                      removeArticleHandler={(e, article) => this._onRemoveArticleClicked(e, article)}

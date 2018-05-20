@@ -7,7 +7,7 @@ import CartHeaderItem from "./cartHeaderItem";
 export default class CartArticles extends React.Component {
 
     render() {
-        const {addHandler, removeOneHandler, removeArticleHandler, saveHandler, saveEnabled} = this.props;
+        const {addHandler, removeOneHandler, removeArticleHandler, saveHandler, saveEnabled, purchase} = this.props;
 
         let headerItem;
         let cartItem;
@@ -24,6 +24,7 @@ export default class CartArticles extends React.Component {
 
             headerItem = (<span key={uuid.v4()}>
                     <CartHeaderItem
+                        purchase={purchase}
                         saveHandler={saveHandler}
                         disabled={saveEnabled}/>
                 </span>);

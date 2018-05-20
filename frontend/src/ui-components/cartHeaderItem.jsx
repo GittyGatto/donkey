@@ -4,10 +4,10 @@ import './cartItem.css'
 class CartHeaderItem extends Component {
 
     render() {
-        const {saveHandler, saveEnabled} = this.props;
+        const {saveHandler, saveEnabled, purchase} = this.props;
         return (
             <div className="list-group-item header">
-                Einkauf
+                {purchase.name}
                 <div className="saveButton">
                     <button className="btn btn-info"
                             onClick={(ev) => saveHandler(ev)}
