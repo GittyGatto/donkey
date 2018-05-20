@@ -6,7 +6,6 @@ class AppStore {
             renderActionPanel: false,
 
             renderCarts: true,
-            cartOptions: [],
             carts: [],
             selectedCart: '',
 
@@ -71,8 +70,7 @@ class AppStore {
     }
 
     handleCartArticlesReceived(ev) {
-
-        this.data.purchase = this.setPurchasArticle(ev.data);
+        this.data.purchase = this.getCartByName(ev.data);
         this.data.selectedCart = ev.cartName;
 
         this.data.renderArticles = true;
@@ -122,7 +120,7 @@ class AppStore {
         this.notifyListeners(ev);
     }
 
-    setPurchasArticle(cartName){
+    getCartByName(cartName) {
         const carts = this.data.carts;
         const index = carts.findIndex(cart => cart.name === cartName);
         return carts[index];
@@ -137,14 +135,14 @@ class AppStore {
 
     removeArticle() {
         const article = this.data.selectedArticle;
-        let purchase = this.data.purchase;
+        let purchase = this.data.purchase.cartArticles;
         const index = purchase.findIndex(x => x.articleName === article.articleName);
         purchase.splice(index, 1);
     }
 
     removeOneArticle() {
         const article = this.data.selectedArticle;
-        let purchase = this.data.purchase;
+        let purchase = this.data.purchase.cartArticles;
 
         let index = purchase.findIndex(x => x.articleName === article.articleName);
 
@@ -156,26 +154,24 @@ class AppStore {
     }
 
     addArticle() {
-        let purchase = this.data.purchase;
+        let purchase = this.data.purchase.cartArticles;
         let article = this.data.selectedArticle;
-        let cartId = purchase[0].cartId;
         let index = purchase.findIndex(x => x.articleName === article.articleName);
 
         if (index >= 0) {
             purchase[index].amount++;
         } else {
             let newArticle = {
-                articleId: article.articleId,
-                articleName: article.articleName,
+                cartArticleUuid: article.uuid,
+                articleName: article.name,
                 categoryName: article.categoryName,
-                cartId: cartId,
                 amount: 1
             };
             purchase.push(newArticle);
             this.data.resetEnabled = true;
             this.data.saveEnabled = true;
         }
-        this.data.purchase = purchase;
+        this.data.purchase.cartArticles = purchase;
     }
 
     resetCart() {
@@ -191,9 +187,6 @@ class AppStore {
             labelValues.push(labelValue);
         })
 
-        if (ev.type === 'cartsReceived') {
-            this.data.cartOptions = labelValues;
-        }
         if (ev.type === 'categoriesReceived') {
             this.data.categoryOptions = labelValues;
         }
