@@ -75,8 +75,10 @@ class AppStore {
         this.data.purchase = this.setPurchasArticle(ev.data);
         this.data.selectedCart = ev.cartName;
 
+        this.data.renderArticles = true;
         this.data.renderPurchase = true;
         this.data.renderCartNameInput = false;
+
         this.data.resetEnabled = true;
         this.update({});
     }

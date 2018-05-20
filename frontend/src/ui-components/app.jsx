@@ -112,7 +112,8 @@ export default class App extends React.Component {
         const renderCarts = state.data.renderCarts;
 
         if (renderCartNameInput) {
-            cartNameInput = <CartNameInput submitHandler={this._onSubmitClicked}
+            cartNameInput = <CartNameInput className="form-field-name"
+                                           submitHandler={this._onSubmitClicked}
                                            cartNameChanged={this._onCartNameChanged}/>
         }
 
@@ -141,7 +142,7 @@ export default class App extends React.Component {
         }
 
         if (renderActionPanel) {
-            actionPanel = <CartActionPanel className="col-12"
+            actionPanel = <CartActionPanel className="form-field-name"
                                            resetHandler={this._onResetClicked}
                                            resetEnabled={state.data.resetEnabled}
                                            saveHandler={this._onSaveClicked}
@@ -158,15 +159,18 @@ export default class App extends React.Component {
         }
 
         return (<div className="container">
+            <h1 className="col-12"><img id="logo" src="/assets/images/logo.png"/>Donkey List</h1>
+
+
             <div className="row">
-                <h1 className="col-12"><img id="logo" src="/assets/images/logo.png"/>Donkey List</h1>
-                {carts}
-                {actionPanel}
-                {cartNameInput}
-                {categories}
-                {articles}
-                {purchase}
+                <div className="col-md-12">{carts}</div>
+                <div className="col-md-6">{articles}</div>
+                <div className="col-md-6">{purchase}</div>
             </div>
+
+            {actionPanel}
+            {cartNameInput}
+            {categories}
         </div>);
     }
 }
