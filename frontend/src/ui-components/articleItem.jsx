@@ -9,7 +9,7 @@ export default class ArticleItem extends Component {
         return (
             <button className="btn btn-primary articleItem"
                 onClick={(ev) => changeHandler(ev, value)}>
-                {this.props.article.name}
+                {this.props.article.articleName}
             </button>
         );
     }

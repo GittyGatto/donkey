@@ -10,7 +10,7 @@ export default class Article extends React.Component {
         let articleItem;
         if (this.props.articles) {
             articleItem = this.props.articles.map((article) => {
-                return (<span key={article.uuid}>
+                return (<span key={article.articleUuid}>
                         <ArticleItem value={article} article={article}
                                      changeHandler={changeHandler}/>
                     </span>
