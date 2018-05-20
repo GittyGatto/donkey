@@ -162,8 +162,8 @@ class AppStore {
             purchase[index].amount++;
         } else {
             let newArticle = {
-                cartArticleUuid: article.uuid,
-                articleName: article.name,
+                cartArticleUuid: article.articleUuid,
+                articleName: article.articleName,
                 categoryName: article.categoryName,
                 amount: 1
             };
