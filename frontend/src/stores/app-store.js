@@ -4,6 +4,9 @@ class AppStore {
     constructor() {
         this.data = {
             renderActionPanel: false,
+            resetEnabled: false,
+            saveEnabled: false,
+
 
             renderCarts: true,
             carts: [],
@@ -19,9 +22,6 @@ class AppStore {
 
             renderPurchase: false,
             purchase: [],
-
-            resetEnabled: false,
-            saveEnabled: false,
 
             renderCartNameInput: false,
             cartNameInput: '',
@@ -75,6 +75,8 @@ class AppStore {
 
         this.data.renderArticles = true;
         this.data.renderPurchase = true;
+        this.data.renderActionPanel = true;
+        this.data.renderCarts = false;
         this.data.renderCartNameInput = false;
 
         this.data.resetEnabled = true;
@@ -113,6 +115,14 @@ class AppStore {
 
     handleDataChanged(ev) {
         this.data = ev.data;
+        this.update({});
+    }
+
+    handleBackToCartsClicked(ev){
+        this.data.renderCarts = true;
+        this.data.renderArticles = false;
+        this.data.renderPurchase = false;
+        this.data.renderActionPanel = false;
         this.update({});
     }
 

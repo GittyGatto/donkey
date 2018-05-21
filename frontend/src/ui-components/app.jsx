@@ -20,6 +20,7 @@ import CartArticles from "./cartArticles";
 import Article from "./article";
 import CartSelection from "./cartSelection";
 import saveNewCart from "../actions/save-new-cart-action";
+import backToCarts from "../actions/back-to-carts-action";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -95,6 +96,11 @@ export default class App extends React.Component {
         cartNameChanged(ev.target.value);
     }
 
+    _onBackClicked(ev) {
+        console.log('back');
+        backToCarts();
+    }
+
     render() {
         const state = this.state;
 
@@ -147,7 +153,7 @@ export default class App extends React.Component {
                                            saveHandler={this._onSaveClicked}
                                            saveEnabled={state.data.saveEnabled}
                                            newCartHandler={this._onNewCartClicked}
-            />
+                                           backHandler={this._onBackClicked}/>
         }
 
         if (renderCarts) {
@@ -162,12 +168,13 @@ export default class App extends React.Component {
 
 
             <div className="row">
+                <div className="col-md-12">{actionPanel}</div>
                 <div className="col-md-12">{carts}</div>
                 <div className="col-md-6">{articles}</div>
                 <div className="col-md-6">{purchase}</div>
             </div>
 
-            {actionPanel}
+
             {cartNameInput}
             {categories}
         </div>);
