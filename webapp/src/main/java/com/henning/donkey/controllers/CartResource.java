@@ -5,6 +5,8 @@ import com.henning.donkey.business.responseEnties.CartDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,9 +35,8 @@ public class CartResource {
 
     @RequestMapping(value = "/api/carts/{uuid}", method = RequestMethod.DELETE)
     public
-    @ResponseBody
     ResponseEntity<?> deleteCart(@PathVariable("uuid") String uuid) {
         this.cartBusinessService.delete(uuid);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

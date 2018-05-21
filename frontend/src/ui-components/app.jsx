@@ -21,6 +21,7 @@ import Article from "./article";
 import CartSelection from "./cartSelection";
 import saveNewCart from "../actions/save-new-cart-action";
 import backToCarts from "../actions/back-to-carts-action";
+import deleteCart from "../actions/delete-purchase-action";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -97,9 +98,15 @@ export default class App extends React.Component {
     }
 
     _onBackClicked(ev) {
-        console.log('back');
         backToCarts();
     }
+
+    _onDeleteClicked(ev) {
+        deleteCart({
+            data: appStore.data.purchase.uuid
+        });
+    }
+
 
     render() {
         const state = this.state;
@@ -153,7 +160,8 @@ export default class App extends React.Component {
                                            saveHandler={this._onSaveClicked}
                                            saveEnabled={state.data.saveEnabled}
                                            newCartHandler={this._onNewCartClicked}
-                                           backHandler={this._onBackClicked}/>
+                                           backHandler={this._onBackClicked}
+                                           deleteHandler={this._onDeleteClicked}/>
         }
 
         if (renderCarts) {

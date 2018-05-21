@@ -14,6 +14,7 @@ export default class PanelButtons extends React.Component {
         const saveEnabled = this.props.saveEnabled;
         const saveHandler = this.props.saveHandler;
         const backHandler = this.props.backHandler;
+        const deleteHandler = this.props.deleteHandler;
 
         return (<div className="panelButtons">
                 <button className="btn"
@@ -34,6 +35,12 @@ export default class PanelButtons extends React.Component {
                 <button className="btn"
                         onClick={backHandler}
                         id="backButton">Back
+                </button>
+
+
+                <button className="btn"
+                        onClick={deleteHandler}
+                        id="deleteButton">Delete
                 </button>
             </div>
         );

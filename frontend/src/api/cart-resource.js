@@ -46,12 +46,11 @@ export default {
 
     deleteCart: function deleteCart(request, successCallback, errorCallback) {
         pre();
-        var request = request.data;
+        var deleteRequest = request.data;
         xhr({
             method: 'DELETE',
-            uri: Config.getUrlFor('/carts'),
+            uri: Config.getUrlFor('/carts/' + deleteRequest),
             json: true,
-            body: request
         }, function (err, resp, body) {
             post();
             if (resp.statusCode === 200) {

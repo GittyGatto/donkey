@@ -1,7 +1,5 @@
 import React from 'react';
 import CartSelectionItem from "./cartSelectionItem";
-import AddCartSelectionItem from "./addCartSelectionItem";
-import uuid from 'uuid';
 
 export default class CartSelection extends React.Component {
 
@@ -9,10 +7,6 @@ export default class CartSelection extends React.Component {
         const {changeHandler, newCartHandler} = this.props;
 
         let cartItem;
-        const defaultActions = (<span key={uuid.v4()}>
-            <AddCartSelectionItem newCartHandler={newCartHandler}/>
-                </span>
-        );
 
         if (this.props.carts) {
             cartItem = this.props.carts.map((cart) => {
@@ -22,7 +16,6 @@ export default class CartSelection extends React.Component {
                 </span>
                 );
             });
-            cartItem.push(defaultActions);
         }
 
         return (<div className="panelButtons">

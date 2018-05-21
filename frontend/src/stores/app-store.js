@@ -3,7 +3,7 @@ import {dispatcher, initStore} from '../util/mini-flux';
 class AppStore {
     constructor() {
         this.data = {
-            renderActionPanel: false,
+            renderActionPanel: true,
             resetEnabled: false,
             saveEnabled: false,
 
@@ -26,6 +26,14 @@ class AppStore {
             renderCartNameInput: false,
             cartNameInput: '',
         };
+    }
+
+    handlePurchaseDeleted(ev){
+        this.removePurchase();
+        this.data.renderCarts = true;
+        this.data.renderPurchase = false;
+        this.data.renderArticles = false;
+        this.update({});
     }
 
     handlePurchaseSaved(ev) {
@@ -65,7 +73,10 @@ class AppStore {
 
     handleNewCartClicked(ev) {
         this.data.renderCartNameInput = true;
+
+        this.data.renderArticles = false;
         this.data.renderPurchase = false;
+
         this.update({});
     }
 
@@ -90,8 +101,10 @@ class AppStore {
 
     handleCartNameSubmitted(ev) {
         this.addCartToCarts(ev.data);
-        this.data.renderCartNameInput = false;
         this.data.cartNameInput = '';
+
+        this.data.renderCartNameInput = false;
+        this.data.renderCarts = true;
         this.update({});
     }
 
@@ -118,7 +131,7 @@ class AppStore {
         this.update({});
     }
 
-    handleBackToCartsClicked(ev){
+    handleBackToCartsClicked(ev) {
         this.data.renderCarts = true;
         this.data.renderArticles = false;
         this.data.renderPurchase = false;
@@ -205,6 +218,14 @@ class AppStore {
     addCartToCarts(NewCart) {
         let carts = this.data.carts;
         carts.push(NewCart);
+        this.data.carts = carts;
+    }
+
+    removePurchase() {
+        let carts = this.data.carts;
+        const purchaseName = this.data.purchase.name;
+        const index = carts.findIndex(cart => cart.name === purchaseName);
+        carts.splice(index);
         this.data.carts = carts;
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface CartArticleRepository extends JpaRepository<CartArticleEntity, Long> {
 
-
+    @Transactional
     List<CartArticleEntity> findByCart(CartEntity cartEntity);
 
     @Transactional

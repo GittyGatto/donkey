@@ -15,7 +15,7 @@ public class CartEntity
 	@Column(name = "cart_id")
 	private long cartId;
 
-	@Column
+	@Column(name = "cart_uuid")
 	private String cartUuid;
 
 	@Column(name = "cart_name")
