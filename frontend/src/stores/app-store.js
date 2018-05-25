@@ -4,9 +4,10 @@ class AppStore {
     constructor() {
         this.data = {
             renderActionPanel: true,
-            resetEnabled: false,
-            saveEnabled: false,
-
+            renderNewButton: false,
+            renderSaveButton: false,
+            renderBackButton: false,
+            renderDeleteButton: false,
 
             renderCarts: true,
             carts: [],
@@ -28,7 +29,7 @@ class AppStore {
         };
     }
 
-    handlePurchaseDeleted(ev){
+    handlePurchaseDeleted(ev) {
         this.removePurchase();
         this.data.renderCarts = true;
         this.data.renderPurchase = false;
@@ -43,14 +44,15 @@ class AppStore {
     handleArticleRemoved(ev) {
         this.data.selectedArticle = ev.article;
         this.removeArticle();
-        this.data.saveEnabled = true;
         this.update({});
     }
 
     handleOneArticleRemoved(ev) {
         this.data.selectedArticle = ev.article;
+
+        this.data.renderSaveButton = true;
+
         this.removeOneArticle();
-        this.data.saveEnabled = true;
         this.update({});
     }
 
@@ -86,37 +88,37 @@ class AppStore {
 
         this.data.renderArticles = true;
         this.data.renderPurchase = true;
-        this.data.renderActionPanel = true;
         this.data.renderCarts = false;
         this.data.renderCartNameInput = false;
 
-        this.data.resetEnabled = true;
+        this.data.renderBackButton = true;
+        this.data.renderDeleteButton = true;
+
         this.update({});
     }
 
     handleCartsReceived(ev) {
         this.data.carts = ev.data;
+
+        this.data.renderNewButton = true;
+
         this.update({});
     }
 
     handleCartNameSubmitted(ev) {
         this.addCartToCarts(ev.data);
         this.data.cartNameInput = '';
-
         this.data.renderCartNameInput = false;
         this.data.renderCarts = true;
-        this.update({});
-    }
 
-    handleCartReseted() {
-        this.resetCart();
-        this.data.saveEnabled = true;
         this.update({});
     }
 
     handleArticleAdded(ev) {
         this.data.selectedArticle = ev.article;
-        this.data.saveEnabled = true;
+
+        this.data.renderSaveButton = true;
+
         this.addArticle();
         this.update({});
     }
@@ -135,7 +137,12 @@ class AppStore {
         this.data.renderCarts = true;
         this.data.renderArticles = false;
         this.data.renderPurchase = false;
-        this.data.renderActionPanel = false;
+
+
+        this.data.renderSaveButton = false;
+        this.data.renderDeleteButton = false;
+        this.data.renderBackButton = false;
+
         this.update({});
     }
 
@@ -191,16 +198,8 @@ class AppStore {
                 amount: 1
             };
             purchase.push(newArticle);
-            this.data.resetEnabled = true;
-            this.data.saveEnabled = true;
         }
         this.data.purchase.cartArticles = purchase;
-    }
-
-    resetCart() {
-        this.data.purchase = [];
-        this.data.resetEnabled = false;
-        this.data.saveEnabled = false;
     }
 
     toLabelValue(ev) {

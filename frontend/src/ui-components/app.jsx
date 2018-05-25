@@ -2,7 +2,6 @@ import React from 'react';
 import 'react-select/dist/react-select.css';
 import '../../styles/index.scss';
 import uuid from 'uuid';
-import cartReset from '../actions/cart-reset-action'
 import addArticle from '../actions/add-article-action';
 import newCart from "../actions/new-cart-action";
 import cartNameChanged from "../actions/cart-name-changed-action";
@@ -55,10 +54,6 @@ export default class App extends React.Component {
 
     _onArticleClicked(ev, article) {
         addArticle(article);
-    }
-
-    _onResetClicked() {
-        cartReset();
     }
 
     _onSubmitClicked(ev) {
@@ -149,19 +144,20 @@ export default class App extends React.Component {
                                      addHandler={(e, article) => this._onAddClicked(e, article)}
                                      removeOneHandler={(e, article) => this._onRemoveOneClicked(e, article)}
                                      removeArticleHandler={(e, article) => this._onRemoveArticleClicked(e, article)}
-                                     saveHandler={this._onSaveClicked}
-                                     saveEnabled={state.data.saveEnabled}/>
+                                     saveHandler={this._onSaveClicked}/>
         }
+
 
         if (renderActionPanel) {
             actionPanel = <CartActionPanel className="form-field-name"
-                                           resetHandler={this._onResetClicked}
-                                           resetEnabled={state.data.resetEnabled}
                                            saveHandler={this._onSaveClicked}
-                                           saveEnabled={state.data.saveEnabled}
                                            newCartHandler={this._onNewCartClicked}
                                            backHandler={this._onBackClicked}
-                                           deleteHandler={this._onDeleteClicked}/>
+                                           deleteHandler={this._onDeleteClicked}
+                                           renderNewButton={state.data.renderNewButton}
+                                           renderSaveButton={state.data.renderSaveButton}
+                                           renderBackButton={state.data.renderBackButton}
+                                           renderDeleteButton={state.data.renderDeleteButton}/>
         }
 
         if (renderCarts) {
@@ -176,15 +172,13 @@ export default class App extends React.Component {
 
 
             <div className="row">
-                <div className="col-md-12">{actionPanel}</div>
-                <div className="col-md-12">{carts}</div>
-                <div className="col-md-6">{articles}</div>
-                <div className="col-md-6">{purchase}</div>
+                <div className="col-xs-12">{actionPanel}</div>
+                <div className="col-xs-12">{carts}</div>
+                <div className="col-xs-3">{articles}</div>
+                <div className="col-xs-9">{purchase}</div>
+                <div className="col-xs-12">{cartNameInput}</div>
+                <div className="col-xs-12">{categories}</div>
             </div>
-
-
-            {cartNameInput}
-            {categories}
         </div>);
     }
 }

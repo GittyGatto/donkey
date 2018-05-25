@@ -1,8 +1,8 @@
 import {dispatcher} from '../util/mini-flux';
-import ArticleResource from '../api/article-resource';
+import CartResource from '../api/cart-resource'
 
 export default function savePurchase(purchase) {
-    ArticleResource.savePurchase(purchase,
+    CartResource.saveCart(purchase,
         function (result) {
             dispatcher.dispatch({
                 type: "purchaseSaved"

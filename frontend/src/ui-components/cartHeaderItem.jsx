@@ -10,8 +10,7 @@ class CartHeaderItem extends Component {
                 {purchase.name}
                 <div className="saveButton">
                     <button className="btn btn-info"
-                            onClick={(ev) => saveHandler(ev)}
-                            disabled={!saveEnabled}>Save
+                            onClick={(ev) => saveHandler(ev)}>Save
                     </button>
                 </div>
             </div>

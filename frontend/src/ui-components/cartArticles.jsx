@@ -25,8 +25,7 @@ export default class CartArticles extends React.Component {
             headerItem = (<span key={uuid.v4()}>
                     <CartHeaderItem
                         purchase={purchase}
-                        saveHandler={saveHandler}
-                        disabled={saveEnabled}/>
+                        saveHandler={saveHandler}/>
                 </span>);
         }
 

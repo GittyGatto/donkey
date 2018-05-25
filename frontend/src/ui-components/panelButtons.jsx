@@ -9,39 +9,54 @@ export default class PanelButtons extends React.Component {
     render() {
 
         const newCartHandler = this.props.newCartHandler;
-        const resetEnabled = this.props.resetEnabled;
-        const resetHandler = this.props.resetHandler;
-        const saveEnabled = this.props.saveEnabled;
         const saveHandler = this.props.saveHandler;
         const backHandler = this.props.backHandler;
         const deleteHandler = this.props.deleteHandler;
 
+        let newCart = undefined;
+        let save = undefined;
+        let back = undefined;
+        let deleteCart = undefined;
+
+        const renderNewButton = this.props.renderNewButton;
+        const renderSaveButton = this.props.renderSaveButton;
+        const renderBackButton = this.props.renderBackButton;
+        const renderDeleteButton = this.props.renderDeleteButton;
+
+        if (renderNewButton) {
+            newCart = <button className="btn"
+                              onClick={newCartHandler}
+                              id="newCartButton">new cart
+            </button>
+        }
+
+        if (renderBackButton) {
+            back = <button className="btn"
+                           onClick={backHandler}
+                           id="backButton">Back
+            </button>
+        }
+
+
+        if (renderSaveButton) {
+            save = <button className="btn"
+                           onClick={saveHandler}
+                           id="saveButton">Save
+            </button>
+        }
+
+        if (renderDeleteButton) {
+            deleteCart = <button className="btn"
+                                 onClick={deleteHandler}
+                                 id="deleteButton">Delete
+            </button>
+        }
+
         return (<div className="panelButtons">
-                <button className="btn"
-                        onClick={newCartHandler}
-                        id="newCartButton">new cart
-                </button>
-
-                <button className="btn"
-                        onClick={resetHandler}
-                        disabled={!resetEnabled} id="resetButton">Reset
-                </button>
-
-                <button className="btn"
-                        onClick={saveHandler}
-                        disabled={!saveEnabled} id="saveButton">Save
-                </button>
-
-                <button className="btn"
-                        onClick={backHandler}
-                        id="backButton">Back
-                </button>
-
-
-                <button className="btn"
-                        onClick={deleteHandler}
-                        id="deleteButton">Delete
-                </button>
+                {newCart}
+                {save}
+                {back}
+                {deleteCart}
             </div>
         );
     }
