@@ -1,6 +1,6 @@
 #!/bin/bash
 
-message="deployment_`date +%F_%H:%M:%S:%N`"
+message="build`date +%F_%H:%M:%S:%N`"
 
 mvn clean install &&
 cp -v ./webapp/target/donkey-webapp.war ../donkeyDemo/. &&
