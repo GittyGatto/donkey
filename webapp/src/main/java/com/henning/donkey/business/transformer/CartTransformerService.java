@@ -2,7 +2,9 @@ package com.henning.donkey.business.transformer;
 
 import com.henning.donkey.business.responseEnties.CartDto;
 import com.henning.donkey.domain.cart.CartEntity;
+import com.henning.donkey.domain.cart.CartRepository;
 import com.henning.donkey.domain.cartArticle.CartArticleEntity;
+import com.henning.donkey.domain.cartArticle.CartArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,12 @@ public class CartTransformerService {
 
     @Autowired
     CartArticleTransformerService cartArticleTransformerService;
+
+    @Autowired
+    CartRepository cartRepository;
+
+    @Autowired
+    CartArticleRepository cartArticleRepository;
 
     public List<CartDto> toCartDto(List<CartEntity> carts) {
         List<CartDto> response = new ArrayList<>();
@@ -33,7 +41,11 @@ public class CartTransformerService {
     }
 
     public CartEntity toCartEntity(CartDto cartDto) {
-        List<CartArticleEntity> cartArticleEntities = cartArticleTransformerService.toCartArticles(cartDto);
-        return new CartEntity(cartDto.getUuid(), cartDto.getName(), cartArticleEntities);
+        CartEntity cartEntity = cartRepository.findByCartUuid(cartDto.getUuid()).orElseGet(CartEntity::new);
+        cartEntity.setCartName(cartDto.getName());
+        cartEntity.setCartUuid(cartDto.getUuid());
+        List<CartArticleEntity> cartArticleEntities = cartArticleTransformerService.toCartArticles(cartDto, cartEntity);
+        cartEntity.setCartArticles(cartArticleEntities);
+        return cartEntity;
     }
 }

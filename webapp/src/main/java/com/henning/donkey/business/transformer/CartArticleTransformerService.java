@@ -7,6 +7,7 @@ import com.henning.donkey.domain.article.ArticleRepository;
 import com.henning.donkey.domain.cart.CartEntity;
 import com.henning.donkey.domain.cart.CartRepository;
 import com.henning.donkey.domain.cartArticle.CartArticleEntity;
+import com.henning.donkey.domain.cartArticle.CartArticleRepository;
 import com.henning.donkey.domain.category.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,9 @@ public class CartArticleTransformerService {
     @Autowired
     CartRepository cartRepository;
 
+    @Autowired
+    CartArticleRepository cartArticleRepository;
+
     public List<CartArticleDto> toCartArticles(List<CartArticleEntity> cartArticleEntities) {
         List<CartArticleDto> cartArticleDtos = new ArrayList<>();
 
@@ -42,17 +46,16 @@ public class CartArticleTransformerService {
         return cartArticleDtos;
     }
 
-    public List<CartArticleEntity> toCartArticles(CartDto cartDto) {
+    public List<CartArticleEntity> toCartArticles(CartDto cartDto, CartEntity cartEntity) {
         List<CartArticleEntity> cartArticleEntities = new ArrayList<>();
-        CartEntity cartEntity = cartRepository.findByCartUuid(cartDto.getUuid());
 
         cartDto.getCartArticles().stream().forEach(cd -> {
-
-            ArticleEntity articleEntity = articleRepository.findByArticleUuid(cd.getCartArticleUuid());
-            CartEntity cart = cartEntity;
-            long amount = cd.getAmount();
-
-            CartArticleEntity cartArticleEntity = new CartArticleEntity(articleEntity.getArticleUuid(), cart, articleEntity, amount);
+            CartArticleEntity cartArticleEntity = cartArticleRepository.findByCartArticleUuid(cd.getCartArticleUuid()).orElseGet(CartArticleEntity::new);
+            cartArticleEntity.setAmount(cd.getAmount());
+            cartArticleEntity.setCart(cartEntity);
+            cartArticleEntity.setCartArticleUuid(cd.getCartArticleUuid());
+            ArticleEntity articleEntity = articleRepository.findByArticleName(cd.getArticleName());
+            cartArticleEntity.setArticle(articleEntity);
             cartArticleEntities.add(cartArticleEntity);
         });
         return cartArticleEntities;

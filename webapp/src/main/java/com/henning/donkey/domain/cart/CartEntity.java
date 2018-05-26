@@ -45,7 +45,9 @@ public class CartEntity
 	}
 
 	public void setCartArticles(List<CartArticleEntity> cartArticles) {
-		this.cartArticles = cartArticles;
+		this.cartArticles.clear();
+		if (cartArticles != null)
+			this.cartArticles.addAll(cartArticles);
 	}
 
 	public long getCartId() {

@@ -11,4 +11,5 @@ public interface ArticleRepository extends JpaRepository<ArticleEntity, Long> {
 
     ArticleEntity findByArticleUuid(String cartArticleUuid);
 
+    ArticleEntity findByArticleName(String articleName);
 }
