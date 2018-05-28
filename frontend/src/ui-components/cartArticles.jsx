@@ -1,6 +1,5 @@
 import React from 'react';
 import CartItem from "./cartItem";
-import './articleTable.css'
 import uuid from 'uuid';
 import CartHeaderItem from "./cartHeaderItem";
 

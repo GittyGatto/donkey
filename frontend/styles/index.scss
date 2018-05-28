@@ -35,8 +35,27 @@ body.loading #progress {
   font-size: smaller;
 }
 
-.buttonPanel .btn {
+.panelButtons .btn {
   margin-right: 0.5em;
+}
+
+input {
+  margin: 1em;
+  width: 50%;
+}
+
+.list-group {
+  margin-top: 0.5em;
+}
+
+.articleItem {
+  width: 100%;
+}
+
+.cart {
+  font-size: large;
+  margin: 1pt;
+  width: 100%;
 }
 
 #logo {

@@ -167,17 +167,17 @@ export default class App extends React.Component {
                                    newCartHandler={this._onNewCartClicked}/>
         }
 
-        return (<div className="container">
+        return (<div className="container-fluid">
             <h1 className="col-12"><img id="logo" src="/assets/images/logo.png"/>Donkey List</h1>
 
 
             <div className="row">
-                <div className="col-xs-12">{actionPanel}</div>
-                <div className="col-xs-12">{carts}</div>
-                <div className="col-xs-3">{articles}</div>
-                <div className="col-xs-9">{purchase}</div>
-                <div className="col-xs-12">{cartNameInput}</div>
-                <div className="col-xs-12">{categories}</div>
+                <div className="col-sm-12">{actionPanel}</div>
+                <div className="col-sm-12">{carts}</div>
+                <div className="col-sm-3">{articles}</div>
+                <div className="col-sm-9">{purchase}</div>
+                <div className="col-sm-12">{cartNameInput}</div>
+                <div className="col-sm-12">{categories}</div>
             </div>
         </div>);
     }

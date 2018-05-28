@@ -1,5 +1,4 @@
 import React from 'react';
-import './panelButtons.css';
 
 export default class PanelButtons extends React.Component {
     constructor(props) {
@@ -24,14 +23,14 @@ export default class PanelButtons extends React.Component {
         const renderDeleteButton = this.props.renderDeleteButton;
 
         if (renderNewButton) {
-            newCart = <button className="btn"
+            newCart = <button className="btn btn-primary"
                               onClick={newCartHandler}
                               id="newCartButton">new cart
             </button>
         }
 
         if (renderBackButton) {
-            back = <button className="btn"
+            back = <button className="btn btn-secondary"
                            onClick={backHandler}
                            id="backButton">Back
             </button>
@@ -39,14 +38,14 @@ export default class PanelButtons extends React.Component {
 
 
         if (renderSaveButton) {
-            save = <button className="btn"
+            save = <button className="btn btn-success"
                            onClick={saveHandler}
                            id="saveButton">Save
             </button>
         }
 
         if (renderDeleteButton) {
-            deleteCart = <button className="btn"
+            deleteCart = <button className="btn btn-warning"
                                  onClick={deleteHandler}
                                  id="deleteButton">Delete
             </button>

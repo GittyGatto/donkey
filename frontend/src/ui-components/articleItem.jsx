@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import './articleItem.css'
 
 export default class ArticleItem extends Component {
 
@@ -7,7 +6,7 @@ export default class ArticleItem extends Component {
         const {changeHandler, value} = this.props;
 
         return (
-            <button className="btn articleItem"
+            <button className="btn articleItem btn-outline-secondary"
                 onClick={(ev) => changeHandler(ev, value)}>
                 {this.props.article.articleName}
             </button>

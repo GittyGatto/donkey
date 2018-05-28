@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import './cartButton.css'
 
 export default class CartSelectionItem extends Component {
 
@@ -7,7 +6,7 @@ export default class CartSelectionItem extends Component {
         const {changeHandler, value} = this.props;
 
         return (
-            <button className="btn cart"
+            <button className="btn cart btn-secondary"
                     onClick={(ev) => changeHandler(ev, value)}>
                 {this.props.cart.name}
             </button>

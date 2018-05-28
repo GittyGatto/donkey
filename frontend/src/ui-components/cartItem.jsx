@@ -13,14 +13,16 @@ class CartItem extends Component {
                 </div>
                 {this.props.article.articleName}
 
-                <div className="btn-group" role="group" aria-label="...">
+                <div className="btn-group" role="group">
+
+
                     <button type="button" className="btn-sm btn-success"
                             id="addButton"
                             onClick={(ev) => addHandler(ev, article)}>
                         <span className="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
                     </button>
 
-                    <button type="button" className="btn-sm btn-info"
+                    <button type="button" className="btn-sm btn-warning"
                             id="removeOneButton"
                             onClick={(ev) => removeOneHandler(ev, article)}>
                         <span className="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>

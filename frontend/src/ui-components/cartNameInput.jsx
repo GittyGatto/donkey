@@ -1,5 +1,4 @@
 import React from 'react';
-import "./cartNameInput.css"
 
 
 export default class CartNameInput extends React.Component {
@@ -9,7 +8,7 @@ export default class CartNameInput extends React.Component {
 
         var value = this.props.value;
 
-        return (<div className="form-group col-xs-6 cartNameInput">
+        return (<div className="form-group cartNameInput">
                 <input className="form-control" type="text"
                        placeholder="Cart Name"
                        value={value}

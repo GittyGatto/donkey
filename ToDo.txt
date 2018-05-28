@@ -1,5 +1,3 @@
 
 ToDo:
-
-- GetCarts
-- SaveCart (new and old)
+bootstrap glyphicon do not load from source.
