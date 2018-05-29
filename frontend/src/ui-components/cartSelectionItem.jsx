@@ -9,6 +9,8 @@ export default class CartSelectionItem extends Component {
             <button className="btn cart btn-secondary"
                     onClick={(ev) => changeHandler(ev, value)}>
                 {this.props.cart.name}
+                <span className="badge">{this.props.cart.cartArticles.length}</span>
+
             </button>
         );
     }
