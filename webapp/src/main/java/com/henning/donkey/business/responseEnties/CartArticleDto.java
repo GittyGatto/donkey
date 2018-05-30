@@ -6,14 +6,16 @@ public class CartArticleDto {
     private String articleName;
     private String categoryName;
     private long amount;
+    private boolean done;
 
     public CartArticleDto(){}
 
-    public CartArticleDto(String cartArticleUuid, String articleName, String categoryName, long amount) {
+    public CartArticleDto(String cartArticleUuid, String articleName, String categoryName, long amount, boolean done) {
         this.cartArticleUuid = cartArticleUuid;
         this.articleName = articleName;
         this.categoryName = categoryName;
         this.amount = amount;
+        this.done = done;
     }
 
     public String getCartArticleUuid() {
@@ -46,5 +48,13 @@ public class CartArticleDto {
 
     public void setAmount(long amount) {
         this.amount = amount;
+    }
+
+    public boolean isDone() {
+        return done;
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
     }
 }

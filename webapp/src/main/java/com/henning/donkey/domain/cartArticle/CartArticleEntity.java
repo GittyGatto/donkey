@@ -27,14 +27,18 @@ public class CartArticleEntity {
     @Column(name = "amount")
     private long amount;
 
+    @Column(name = "done")
+    private boolean done;
+
     public CartArticleEntity() {
     }
 
-    public CartArticleEntity(String cartArticleUuid, CartEntity cart, ArticleEntity article, long amount) {
+    public CartArticleEntity(String cartArticleUuid, CartEntity cart, ArticleEntity article, long amount, boolean done) {
         this.cartArticleUuid = cartArticleUuid;
         this.cart = cart;
         this.article = article;
         this.amount = amount;
+        this.done = done;
     }
 
     public String getCartArticleUuid() {
@@ -75,5 +79,13 @@ public class CartArticleEntity {
 
     public void setAmount(long amount) {
         this.amount = amount;
+    }
+
+    public boolean isDone() {
+        return done;
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
     }
 }

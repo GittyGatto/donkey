@@ -38,9 +38,10 @@ public class CartArticleTransformerService {
             String articleName = ca.getArticle().getArticleName();
             String categoryName = ca.getArticle().getCategory().getCategoryName();
             long amount = ca.getAmount();
+            boolean done = ca.isDone();
             String cartUuid = ca.getCartArticleUuid();
 
-            CartArticleDto cartArticleDto = new CartArticleDto(cartUuid, articleName, categoryName, amount);
+            CartArticleDto cartArticleDto = new CartArticleDto(cartUuid, articleName, categoryName, amount, done);
             cartArticleDtos.add(cartArticleDto);
         });
         return cartArticleDtos;
@@ -52,6 +53,7 @@ public class CartArticleTransformerService {
         cartDto.getCartArticles().stream().forEach(cd -> {
             CartArticleEntity cartArticleEntity = cartArticleRepository.findByCartArticleUuid(cd.getCartArticleUuid()).orElseGet(CartArticleEntity::new);
             cartArticleEntity.setAmount(cd.getAmount());
+            cartArticleEntity.setDone(cd.isDone());
             cartArticleEntity.setCart(cartEntity);
             cartArticleEntity.setCartArticleUuid(cd.getCartArticleUuid());
             ArticleEntity articleEntity = articleRepository.findByArticleName(cd.getArticleName());
