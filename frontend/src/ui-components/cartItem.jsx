@@ -9,12 +9,12 @@ class CartItem extends Component {
         return (
             <div className="list-group-item">
 
-                <div className="article_amount"><span className="badge">{this.props.article.amount}</span>
+                <div className="article_amount">
+                    <span className="badge">{this.props.article.amount}</span>
                 </div>
                 {this.props.article.articleName}
 
                 <div className="btn-group" role="group">
-
 
                     <button type="button" className="btn-sm btn-success"
                             id="addButton"
