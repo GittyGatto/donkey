@@ -6,6 +6,7 @@ import '../styles/index.scss';
 import getCarts from './actions/get-carts-action';
 import getArticles from "./actions/get-articles-action";
 import getCategories from "./actions/get-categories-action";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 render(<AppContainer><App/></AppContainer>, document.querySelector("#app"));

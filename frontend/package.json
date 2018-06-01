@@ -17,9 +17,11 @@
   "license": "GPL-3",
   "homepage": "https://donkey.herokuapp.com",
   "dependencies": {
+    "bootstrap": "^4.1.1",
     "copy-webpack-plugin": "^4.0.1",
     "node-sass": "^4.3.0",
     "react": "15.4.2",
+    "react-bootstrap": "^0.32.1",
     "react-dom": "15.4.2",
     "react-select": "^1.2.1",
     "sass-loader": "^6.0.2",
