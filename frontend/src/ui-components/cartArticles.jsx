@@ -6,7 +6,7 @@ import CartHeaderItem from "./cartHeaderItem";
 export default class CartArticles extends React.Component {
 
     render() {
-        const {addHandler, removeOneHandler, removeArticleHandler, saveHandler, saveEnabled, purchase} = this.props;
+        const {addHandler, removeOneHandler, removeArticleHandler, saveHandler, saveEnabled, doneHandler, purchase} = this.props;
 
         let headerItem;
         let cartItem;
@@ -17,7 +17,8 @@ export default class CartArticles extends React.Component {
                         article={article}
                         addHandler={addHandler}
                         removeOneHandler={removeOneHandler}
-                        removeArticleHandler={removeArticleHandler}/>
+                        removeArticleHandler={removeArticleHandler}
+                        doneHandler={doneHandler}/>
                 </span>);
             });
 

@@ -11,6 +11,7 @@ import removeArticle from '../actions/remove-article-action'
 import getCartArticles from '../actions/get-cart-articles-action';
 import savePurchase from '../actions/save-purchase-action';
 import getPurchase from "../actions/get-purchase-action";
+import checkedArticle from "../actions/checked-article-action"
 import appStore from '../stores/app-store';
 import Select from 'react-select';
 import CartActionPanel from "./panelButtons";
@@ -102,6 +103,10 @@ export default class App extends React.Component {
         });
     }
 
+    _onDoneClicked(e, article) {
+        checkedArticle(article);
+    }
+
 
     render() {
         const state = this.state;
@@ -144,6 +149,7 @@ export default class App extends React.Component {
                                      addHandler={(e, article) => this._onAddClicked(e, article)}
                                      removeOneHandler={(e, article) => this._onRemoveOneClicked(e, article)}
                                      removeArticleHandler={(e, article) => this._onRemoveArticleClicked(e, article)}
+                                     doneHandler={(e, article) => this._onDoneClicked(e, article)}
                                      saveHandler={this._onSaveClicked}/>
         }
 
@@ -169,16 +175,15 @@ export default class App extends React.Component {
 
         return (<div className="container-fluid">
             <h1 className="col-12"><img id="logo" src="/assets/images/logo.png"/>Donkey List</h1>
-
-
             <div className="row">
                 <div className="col-sm-12">{actionPanel}</div>
                 <div className="col-sm-12">{carts}</div>
-                <div className="col-sm-3">{articles}</div>
-                <div className="col-sm-9">{purchase}</div>
+                <div className="col-sm-12">{articles}</div>
+                <div className="col-sm-6">{purchase}</div>
                 <div className="col-sm-12">{cartNameInput}</div>
                 <div className="col-sm-12">{categories}</div>
             </div>
         </div>);
     }
+
 }

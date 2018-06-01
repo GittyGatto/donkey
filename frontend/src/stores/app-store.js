@@ -11,7 +11,7 @@ class AppStore {
 
             renderCarts: true,
             carts: [],
-            selectedCart: '',
+            cartdoneState: 0,
 
             renderCategories: false,
             categoryOptions: [],
@@ -27,6 +27,11 @@ class AppStore {
             renderCartNameInput: false,
             cartNameInput: '',
         };
+    }
+
+    handleArticleChecked(ev) {
+        this.data.purchase.cartArticles = this.checkArticle(ev.article);
+        this.update({});
     }
 
     handlePurchaseDeleted(ev) {
@@ -84,9 +89,7 @@ class AppStore {
 
     handleCartArticlesReceived(ev) {
         this.data.purchase = this.getCartByName(ev.data);
-        this.data.selectedCart = ev.cartName;
-
-        this.data.renderArticles = true;
+        this.data.renderArticles = false;
         this.data.renderPurchase = true;
         this.data.renderCarts = false;
         this.data.renderCartNameInput = false;
@@ -99,9 +102,7 @@ class AppStore {
 
     handleCartsReceived(ev) {
         this.data.carts = ev.data;
-
         this.data.renderNewButton = true;
-
         this.update({});
     }
 
@@ -110,15 +111,12 @@ class AppStore {
         this.data.cartNameInput = '';
         this.data.renderCartNameInput = false;
         this.data.renderCarts = true;
-
         this.update({});
     }
 
     handleArticleAdded(ev) {
         this.data.selectedArticle = ev.article;
-
         this.data.renderSaveButton = true;
-
         this.addArticle();
         this.update({});
     }
@@ -137,12 +135,9 @@ class AppStore {
         this.data.renderCarts = true;
         this.data.renderArticles = false;
         this.data.renderPurchase = false;
-
-
         this.data.renderSaveButton = false;
         this.data.renderDeleteButton = false;
         this.data.renderBackButton = false;
-
         this.update({});
     }
 
@@ -181,6 +176,17 @@ class AppStore {
         } else {
             purchase.splice(index, 1);
         }
+    }
+
+    checkArticle(article) {
+        let purchase = this.data.purchase.cartArticles;
+        const index = purchase.findIndex(x => x.articleName === article.articleName);
+        if (purchase[index].done){
+            purchase[index].done = false;
+        } else {
+            purchase[index].done = true;
+        }
+        return this.data.purchase.cartArticles = purchase;
     }
 
     addArticle() {
