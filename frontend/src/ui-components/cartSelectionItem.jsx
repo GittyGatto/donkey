@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Badge, Button} from "react-bootstrap";
 
 export default class CartSelectionItem extends Component {
 
@@ -6,12 +7,12 @@ export default class CartSelectionItem extends Component {
         const {changeHandler, value} = this.props;
 
         return (
-            <button className="btn cart btn-secondary"
+            <Button className="big_button"
+                    bsStyle="info"
                     onClick={(ev) => changeHandler(ev, value)}>
-                {this.props.cart.name}
-                <span className="badge">{this.props.cart.cartArticles.length}</span>
+                {this.props.cart.name} <Badge>{this.props.cart.cartArticles.length}</Badge>
 
-            </button>
+            </Button>
         );
     }
 }

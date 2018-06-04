@@ -1,20 +1,37 @@
 import React, {Component} from 'react';
-import './cartItem.css'
+import {Button, ButtonGroup, Glyphicon, Panel} from "react-bootstrap";
 
 class CartHeaderItem extends Component {
 
     render() {
-        const {saveHandler, saveEnabled, purchase} = this.props;
-        return (
-            <div className="list-group-item header">
-                {purchase.name}
-                <div className="saveButton">
-                    <button className="btn btn-info"
-                            onClick={(ev) => saveHandler(ev)}>Save
-                    </button>
-                </div>
-            </div>
-        );
+        const {saveHandler, editCartHandler} = this.props;
+
+        return (<div>
+            <Panel className="cart_item"
+                   bsStyle="info">
+
+                <Panel.Heading>
+
+                    <Panel.Title componentClass="h3">
+
+                        {this.props.purchase.name}
+
+                        <ButtonGroup className="cart_item_buttonGroup">
+
+                            <Button className="cart_item_button"
+                                    bsStyle="info"
+                                    onClick={(ev) => saveHandler(ev)}><Glyphicon glyph="save"/> Save</Button>
+
+                            <Button bsStyle="warning"onClick={(ev) => editCartHandler(ev)}><Glyphicon glyph="pencil"/> add stuff</Button>
+
+                        </ButtonGroup>
+
+                    </Panel.Title>
+
+                </Panel.Heading>
+
+            </Panel>
+        </div>);
     }
 }
 

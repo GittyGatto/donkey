@@ -22,6 +22,9 @@ import CartSelection from "./cartSelection";
 import saveNewCart from "../actions/save-new-cart-action";
 import backToCarts from "../actions/back-to-carts-action";
 import deleteCart from "../actions/delete-purchase-action";
+import editCart from "../actions/edit-cart-action";
+import {Col, Grid, Row} from "react-bootstrap";
+import Header from "./header";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -103,20 +106,23 @@ export default class App extends React.Component {
         });
     }
 
-    _onDoneClicked(e, article) {
+    _onDoneClicked(ev, article) {
         checkedArticle(article);
     }
 
+    _onEditCartClicked(ev){
+        editCart();
+    }
 
     render() {
         const state = this.state;
 
-        let cartNameInput = undefined;
+        let carts = undefined;
+        let purchase = undefined;
         let articles = undefined;
         let categories = undefined;
-        let purchase = undefined;
+        let cartNameInput = undefined;
         let actionPanel = undefined;
-        let carts = undefined;
         const renderCartNameInput = state.data.renderCartNameInput;
         const renderArticles = state.data.renderArticles;
         const renderCategories = state.data.renderCategories;
@@ -124,33 +130,29 @@ export default class App extends React.Component {
         const renderActionPanel = state.data.renderActionPanel;
         const renderCarts = state.data.renderCarts;
 
-        if (renderCartNameInput) {
-            cartNameInput = <CartNameInput className="form-field-name"
-                                           submitHandler={this._onSubmitClicked}
-                                           cartNameChanged={this._onCartNameChanged}/>
+        const header = <Header backHandler={this._onBackClicked}/>
+
+
+        if (renderCarts) {
+            carts = <CartSelection carts={state.data.carts}
+                                   changeHandler={(e, cart) => this._onCartSelectionClicked(e, cart)}
+                                   newCartHandler={this._onNewCartClicked}/>
         }
 
-        if (renderArticles) {
-            articles = <Article className="form-field-name"
-                                articles={state.data.articles}
-                                changeHandler={(e, article) => this._onArticleClicked(e, article)}/>
-        }
-
-        if (renderCategories) {
-            categories = <Select className="form-field-name"
-                                 value={state.data.selectedCategory}
-                                 onChange={(e) => this._onCategoryChange(e)}
-                                 options={state.data.categoryOptions}/>
-        }
 
         if (renderPurchase) {
-            purchase = <CartArticles className="form-field-name"
-                                     purchase={state.data.purchase}
+            purchase = <CartArticles purchase={state.data.purchase}
                                      addHandler={(e, article) => this._onAddClicked(e, article)}
                                      removeOneHandler={(e, article) => this._onRemoveOneClicked(e, article)}
                                      removeArticleHandler={(e, article) => this._onRemoveArticleClicked(e, article)}
                                      doneHandler={(e, article) => this._onDoneClicked(e, article)}
-                                     saveHandler={this._onSaveClicked}/>
+                                     saveHandler={this._onSaveClicked}
+                                     editCartHandler={this._onEditCartClicked}/>
+        }
+
+        if (renderArticles) {
+            articles = <Article articles={state.data.articles}
+                                changeHandler={(e, article) => this._onArticleClicked(e, article)}/>
         }
 
 
@@ -166,24 +168,45 @@ export default class App extends React.Component {
                                            renderDeleteButton={state.data.renderDeleteButton}/>
         }
 
-        if (renderCarts) {
-            carts = <CartSelection className="form-field-name"
-                                   carts={state.data.carts}
-                                   changeHandler={(e, cart) => this._onCartSelectionClicked(e, cart)}
-                                   newCartHandler={this._onNewCartClicked}/>
+
+        if (renderCartNameInput) {
+            cartNameInput = <CartNameInput className="form-field-name"
+                                           submitHandler={this._onSubmitClicked}
+                                           cartNameChanged={this._onCartNameChanged}/>
+        }
+
+
+
+        if (renderCategories) {
+            categories = <Select className="form-field-name"
+                                 value={state.data.selectedCategory}
+                                 onChange={(e) => this._onCategoryChange(e)}
+                                 options={state.data.categoryOptions}/>
         }
 
         return (<div className="container-fluid">
-            <h1 className="col-12"><img id="logo" src="/assets/images/logo.png"/>Donkey List</h1>
-            <div className="row">
-                <div className="col-sm-12">{actionPanel}</div>
-                <div className="col-sm-12">{carts}</div>
-                <div className="col-sm-12">{articles}</div>
-                <div className="col-sm-6">{purchase}</div>
-                <div className="col-sm-12">{cartNameInput}</div>
-                <div className="col-sm-12">{categories}</div>
+
+                {header}
+
+                <Grid>
+                    <Row className="show-grid">
+                        <Col xs={12}>
+                            {carts}
+                        </Col>
+
+                        <Col xs={12}>
+                            {purchase}
+                        </Col>
+
+                        <Col xs={9}>
+                            {articles}
+                        </Col>
+
+                    </Row>
+                </Grid>
+
             </div>
-        </div>);
+        );
     }
 
 }

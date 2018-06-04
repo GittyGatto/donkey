@@ -3,15 +3,14 @@ import {dispatcher, initStore} from '../util/mini-flux';
 class AppStore {
     constructor() {
         this.data = {
-            renderActionPanel: true,
+            renderActionPanel: false,
             renderNewButton: false,
             renderSaveButton: false,
             renderBackButton: false,
             renderDeleteButton: false,
 
-            renderCarts: true,
+            renderCarts: false,
             carts: [],
-            cartdoneState: 0,
 
             renderCategories: false,
             categoryOptions: [],
@@ -102,7 +101,7 @@ class AppStore {
 
     handleCartsReceived(ev) {
         this.data.carts = ev.data;
-        this.data.renderNewButton = true;
+        this.data.renderCarts = true;
         this.update({});
     }
 
@@ -138,6 +137,12 @@ class AppStore {
         this.data.renderSaveButton = false;
         this.data.renderDeleteButton = false;
         this.data.renderBackButton = false;
+        this.update({});
+    }
+
+    handleEditCartClicked(ev){
+        this.data.renderPurchase = false;
+        this.data.renderArticles = true;
         this.update({});
     }
 

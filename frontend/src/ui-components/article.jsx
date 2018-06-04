@@ -18,7 +18,7 @@ export default class Article extends React.Component {
             });
         }
 
-        return (<div className="panelButtons">
+        return (<div>
             {articleItem}
         </div>);
     }
