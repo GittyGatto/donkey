@@ -4,7 +4,17 @@ import {Badge, Button, ButtonGroup, Checkbox, Glyphicon, Panel} from "react-boot
 class CartItem extends Component {
     render() {
 
-        const {addHandler, removeOneHandler, removeArticleHandler, doneHandler, article} = this.props;
+        const {addHandler, removeOneHandler, removeArticleHandler, doneHandler, article, renderDoneBox} = this.props;
+
+        let doneBox = undefined;
+
+        if (renderDoneBox) {
+            doneBox = <Checkbox className="cart_item_checkbox"
+                                onChange={(ev) => doneHandler(ev, article)}
+                                checked={this.props.article.done}>
+            </Checkbox>
+        }
+
 
         return (<div>
             <Panel className="cart_item"
@@ -16,11 +26,7 @@ class CartItem extends Component {
 
                         <Badge>{this.props.article.amount}</Badge> {this.props.article.articleName}
 
-
-                        <Checkbox className="cart_item_checkbox"
-                                  onChange={(ev) => doneHandler(ev, article)}
-                                  checked={this.props.article.done}>
-                        </Checkbox>
+                        {doneBox}
 
                         <ButtonGroup className="cart_item_buttonGroup">
 

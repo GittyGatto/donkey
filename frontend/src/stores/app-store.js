@@ -10,14 +10,16 @@ class AppStore {
             renderDeleteButton: false,
 
             renderCarts: false,
+            renderDoneBox: false,
             carts: [],
 
             renderCategories: false,
             categoryOptions: [],
-            selectedCategory: 'All',
+            selectedCategory: 'Alle',
 
             renderArticles: false,
             articles: [],
+            filteredArticles: [],
             selectedArticle: '',
 
             renderPurchase: false,
@@ -60,9 +62,9 @@ class AppStore {
         this.update({});
     }
 
-    handleCategoryArticlesReceived(ev) {
-        this.data.articles = ev.data;
-        this.data.selectedCategory = ev.categoryName;
+    handleCategoryChanged(ev) {
+        this.data.selectedCategory = ev.data;
+        this.filterArticles(ev.data);
         this.update({});
     }
 
@@ -74,6 +76,7 @@ class AppStore {
 
     handleArticlesReceived(ev) {
         this.data.articles = ev.data;
+        this.data.filteredArticles = ev.data;
         this.update({});
     }
 
@@ -87,9 +90,12 @@ class AppStore {
     }
 
     handleCartArticlesReceived(ev) {
-        this.data.purchase = this.getCartByName(ev.data);
-        this.data.renderArticles = false;
+        this.setPurchase(ev.data);
+
+        this.data.renderArticles = true;
         this.data.renderPurchase = true;
+        this.data.renderCategories = true;
+        this.data.renderDoneBox = false;
         this.data.renderCarts = false;
         this.data.renderCartNameInput = false;
 
@@ -140,7 +146,7 @@ class AppStore {
         this.update({});
     }
 
-    handleEditCartClicked(ev){
+    handleEditCartClicked(ev) {
         this.data.renderPurchase = false;
         this.data.renderArticles = true;
         this.update({});
@@ -150,15 +156,15 @@ class AppStore {
         this.notifyListeners(ev);
     }
 
-    getCartByName(cartName) {
+    setPurchase(cartName) {
         const carts = this.data.carts;
         const index = carts.findIndex(cart => cart.name === cartName);
-        return carts[index];
+        this.data.purchase = carts[index];
     }
 
     addDefaultCategory() {
         let categoryOptions = this.data.categoryOptions;
-        const defaultOption = {label: 'All', value: 'All'};
+        const defaultOption = {label: 'Alle', value: 'Alle', clearableValue: false};
         categoryOptions.push(defaultOption);
         this.data.categoryOptions = categoryOptions;
     }
@@ -186,7 +192,7 @@ class AppStore {
     checkArticle(article) {
         let purchase = this.data.purchase.cartArticles;
         const index = purchase.findIndex(x => x.articleName === article.articleName);
-        if (purchase[index].done){
+        if (purchase[index].done) {
             purchase[index].done = false;
         } else {
             purchase[index].done = true;
@@ -216,13 +222,10 @@ class AppStore {
     toLabelValue(ev) {
         let labelValues = [];
         ev.data.forEach(e => {
-            const labelValue = {label: e.name, value: e.name};
+            const labelValue = {label: e.name, value: e.name, clearableValue: false};
             labelValues.push(labelValue);
         })
-
-        if (ev.type === 'categoriesReceived') {
-            this.data.categoryOptions = labelValues;
-        }
+        this.data.categoryOptions = labelValues;
     }
 
     addCartToCarts(NewCart) {
@@ -237,6 +240,12 @@ class AppStore {
         const index = carts.findIndex(cart => cart.name === purchaseName);
         carts.splice(index);
         this.data.carts = carts;
+    }
+
+    filterArticles(categoryName) {
+        const articles = this.data.articles;
+        let filteredArticles = articles.filter(article => article.categoryName === categoryName || categoryName === 'Alle');
+        this.data.filteredArticles = filteredArticles;
     }
 }
 

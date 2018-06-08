@@ -23,7 +23,7 @@ import saveNewCart from "../actions/save-new-cart-action";
 import backToCarts from "../actions/back-to-carts-action";
 import deleteCart from "../actions/delete-purchase-action";
 import editCart from "../actions/edit-cart-action";
-import {Col, Grid, Row} from "react-bootstrap";
+import {Col, DropdownButton, Grid, MenuItem, Row} from "react-bootstrap";
 import Header from "./header";
 
 export default class App extends React.Component {
@@ -110,7 +110,7 @@ export default class App extends React.Component {
         checkedArticle(article);
     }
 
-    _onEditCartClicked(ev){
+    _onEditCartClicked(ev) {
         editCart();
     }
 
@@ -146,13 +146,18 @@ export default class App extends React.Component {
                                      removeOneHandler={(e, article) => this._onRemoveOneClicked(e, article)}
                                      removeArticleHandler={(e, article) => this._onRemoveArticleClicked(e, article)}
                                      doneHandler={(e, article) => this._onDoneClicked(e, article)}
+                                     renderDoneBox={state.data.renderDoneBox}
                                      saveHandler={this._onSaveClicked}
                                      editCartHandler={this._onEditCartClicked}/>
         }
 
         if (renderArticles) {
-            articles = <Article articles={state.data.articles}
-                                changeHandler={(e, article) => this._onArticleClicked(e, article)}/>
+            articles = <Article articles={state.data.filteredArticles}
+                                articleChangeHandler={(e, article) => this._onArticleClicked(e, article)}
+
+                                selectedCategory={state.data.selectedCategory}
+                                categoryChangeHandler={(e) => this._onCategoryChange(e)}
+                                categoryOptions={state.data.categoryOptions}/>
         }
 
 
@@ -176,7 +181,6 @@ export default class App extends React.Component {
         }
 
 
-
         if (renderCategories) {
             categories = <Select className="form-field-name"
                                  value={state.data.selectedCategory}
@@ -189,20 +193,16 @@ export default class App extends React.Component {
                 {header}
 
                 <Grid>
+
                     <Row className="show-grid">
-                        <Col xs={12}>
-                            {carts}
-                        </Col>
 
-                        <Col xs={12}>
-                            {purchase}
-                        </Col>
+                        <Col xs={12}>{carts}</Col>
 
-                        <Col xs={9}>
-                            {articles}
-                        </Col>
+                        <Col xs={9}>{purchase}</Col>
+                        <Col xs={3}>{articles}</Col>
 
                     </Row>
+
                 </Grid>
 
             </div>

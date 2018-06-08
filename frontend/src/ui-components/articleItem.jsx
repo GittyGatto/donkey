@@ -1,14 +1,19 @@
 import React, {Component} from 'react';
+import {Button} from "react-bootstrap";
 
 export default class ArticleItem extends Component {
 
     render() {
-        const {changeHandler, value} = this.props;
+        const {articleChangeHandler, value} = this.props;
 
         return (
-            <button onClick={(ev) => changeHandler(ev, value)}>
+            <Button bsStyle="info"
+                    className="big_button"
+                    onClick={(ev) => articleChangeHandler(ev, value)}>
+
                 {this.props.article.articleName}
-            </button>
+
+            </Button>
         );
     }
 }

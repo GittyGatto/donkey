@@ -12,7 +12,8 @@ export default class Category extends React.Component {
             categoryItem = this.props.categories.map((category) => {
                 return (<div className="row buttonPanel"
                         key={category.id}>
-                        <CategoryItem value={category} category={category}
+                        <CategoryItem value={category}
+                                      category={category}
                                       changeHandler={changeHandler}/>
                     </div>
                 );

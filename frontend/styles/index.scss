@@ -7,7 +7,6 @@ html {
 }
 
 .big_button {
-  font-size: 40px;
   width: 100%;
   margin: 0.1em;
 }
@@ -28,4 +27,8 @@ html {
   transform: scale(1.5);
   float: left;
   margin-top: 0.2em;
+}
+
+.category_filter_dropdown{
+  float: right;
 }
