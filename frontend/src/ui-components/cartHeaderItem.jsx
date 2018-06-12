@@ -4,7 +4,7 @@ import {Button, ButtonGroup, Glyphicon, Panel} from "react-bootstrap";
 class CartHeaderItem extends Component {
 
     render() {
-        const {saveHandler, editCartHandler} = this.props;
+        const {saveHandler, editCartHandler, editToggle} = this.props;
 
         return (<div>
             <Panel className="cart_item"
@@ -22,7 +22,7 @@ class CartHeaderItem extends Component {
                                     bsStyle="info"
                                     onClick={(ev) => saveHandler(ev)}><Glyphicon glyph="save"/> Save</Button>
 
-                            <Button bsStyle="warning"onClick={(ev) => editCartHandler(ev)}><Glyphicon glyph="pencil"/> add stuff</Button>
+                            <Button bsStyle="warning" onClick={(ev) => editCartHandler(ev)}>{editToggle ? 'EDIT' : 'READY'}</Button>
 
                         </ButtonGroup>
 

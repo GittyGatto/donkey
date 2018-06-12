@@ -5,11 +5,11 @@ import CartItem from  "./cartItem";
 export default class Cart extends React.Component {
 
     render() {
-        const {changeHandler} = this.props;
+        const {article} = this.props;
 
         let cartItem;
         if (this.props.purchase) {
-            cartItem = this.props.purchase.map((article) => {
+            cartItem = article.map((article) => {
                 return (
                     <div key={article.title}>
                         <CartItem article={article}/>

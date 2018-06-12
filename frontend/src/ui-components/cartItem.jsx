@@ -4,15 +4,34 @@ import {Badge, Button, ButtonGroup, Checkbox, Glyphicon, Panel} from "react-boot
 class CartItem extends Component {
     render() {
 
-        const {addHandler, removeOneHandler, removeArticleHandler, doneHandler, article, renderDoneBox} = this.props;
+        const {addHandler, removeOneHandler, removeArticleHandler, doneHandler, article, renderDoneBox, renderButtonPhalanx} = this.props;
 
         let doneBox = undefined;
+        let buttonPhalanx = undefined;
 
         if (renderDoneBox) {
             doneBox = <Checkbox className="cart_item_checkbox"
                                 onChange={(ev) => doneHandler(ev, article)}
                                 checked={this.props.article.done}>
             </Checkbox>
+        }
+
+        if (renderButtonPhalanx) {
+            buttonPhalanx = <ButtonGroup className="cart_item_buttonGroup">
+
+                <Button className="cart_item_button"
+                        onClick={(ev) => addHandler(ev, article)}>
+                    <Glyphicon glyph="plus"/></Button>
+
+                <Button className="cart_item_button"
+                        onClick={(ev) => removeOneHandler(ev, article)}>
+                    <Glyphicon glyph="minus"/></Button>
+
+                <Button className="cart_item_button"
+                        onClick={(ev) => removeArticleHandler(ev, article)}>
+                    <Glyphicon glyph="erase"/></Button>
+
+            </ButtonGroup>
         }
 
 
@@ -28,22 +47,7 @@ class CartItem extends Component {
 
                         {doneBox}
 
-                        <ButtonGroup className="cart_item_buttonGroup">
-
-                            <Button className="cart_item_button"
-                                    onClick={(ev) => addHandler(ev, article)}>
-                                <Glyphicon glyph="plus"/></Button>
-
-                            <Button className="cart_item_button"
-                                    onClick={(ev) => removeOneHandler(ev, article)}>
-                                <Glyphicon glyph="minus"/></Button>
-
-                            <Button className="cart_item_button"
-                                    onClick={(ev) => removeArticleHandler(ev, article)}>
-                                <Glyphicon glyph="erase"/></Button>
-
-                        </ButtonGroup>
-
+                        {buttonPhalanx}
 
                     </Panel.Title>
 

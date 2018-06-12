@@ -6,11 +6,12 @@ import CartHeaderItem from "./cartHeaderItem";
 export default class CartArticles extends React.Component {
 
     render() {
-        const {addHandler, removeOneHandler, removeArticleHandler, saveHandler, doneHandler, purchase, editCartHandler, renderDoneBox} = this.props;
+        const {addHandler, removeOneHandler, removeArticleHandler, saveHandler, doneHandler, purchase, editCartHandler, renderDoneBox, editToggle, renderButtonPhalanx} = this.props;
 
         const cartHeaderItem = <CartHeaderItem purchase={purchase}
                                                saveHandler={saveHandler}
-                                               editCartHandler={editCartHandler}/>;
+                                               editCartHandler={editCartHandler}
+                                               editToggle={editToggle}/>;
         let cartItem;
 
         if (this.props.purchase) {
@@ -21,7 +22,8 @@ export default class CartArticles extends React.Component {
                               removeOneHandler={removeOneHandler}
                               removeArticleHandler={removeArticleHandler}
                               doneHandler={doneHandler}
-                              renderDoneBox={renderDoneBox}/>
+                              renderDoneBox={renderDoneBox}
+                              renderButtonPhalanx={renderButtonPhalanx}/>
                 </span>);
             });
 

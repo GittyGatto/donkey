@@ -148,7 +148,9 @@ export default class App extends React.Component {
                                      doneHandler={(e, article) => this._onDoneClicked(e, article)}
                                      renderDoneBox={state.data.renderDoneBox}
                                      saveHandler={this._onSaveClicked}
-                                     editCartHandler={this._onEditCartClicked}/>
+                                     editCartHandler={this._onEditCartClicked}
+                                     editToggle={state.data.editToggle}
+                                     renderButtonPhalanx={state.data.renderCartEditButtonPhalanx}/>
         }
 
         if (renderArticles) {
@@ -197,7 +199,6 @@ export default class App extends React.Component {
                     <Row className="show-grid">
 
                         <Col xs={12}>{carts}</Col>
-
                         <Col xs={9}>{purchase}</Col>
                         <Col xs={3}>{articles}</Col>
 

@@ -24,6 +24,8 @@ class AppStore {
 
             renderPurchase: false,
             purchase: [],
+            editToggle: false,
+            renderCartEditButtonPhalanx: false,
 
             renderCartNameInput: false,
             cartNameInput: '',
@@ -95,6 +97,7 @@ class AppStore {
         this.data.renderArticles = true;
         this.data.renderPurchase = true;
         this.data.renderCategories = true;
+        this.data.renderCartEditButtonPhalanx = true;
         this.data.renderDoneBox = false;
         this.data.renderCarts = false;
         this.data.renderCartNameInput = false;
@@ -147,13 +150,27 @@ class AppStore {
     }
 
     handleEditCartClicked(ev) {
-        this.data.renderPurchase = false;
-        this.data.renderArticles = true;
+        this.cartEditToggle();
         this.update({});
     }
 
     update(ev) {
         this.notifyListeners(ev);
+    }
+
+    cartEditToggle() {
+        if (this.data.editToggle) {
+            this.data.renderPurchase = true;
+            this.data.renderArticles = true;
+            this.data.renderDoneBox = false;
+            this.data.renderCartEditButtonPhalanx = true;
+        } else {
+            this.data.renderPurchase = true;
+            this.data.renderArticles = false;
+            this.data.renderDoneBox = true;
+            this.data.renderCartEditButtonPhalanx = false;
+        }
+        this.data.editToggle = !this.data.editToggle;
     }
 
     setPurchase(cartName) {
