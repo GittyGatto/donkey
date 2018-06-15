@@ -61,6 +61,7 @@ class AppStore {
         this.data.selectedArticle = ev.article;
         this.data.renderSaveButton = true;
         this.removeOneArticle();
+        this.resetFilteredArticles();
         this.removeCartArticlesFromFilteredArticles();
         this.update({});
     }
@@ -288,6 +289,10 @@ class AppStore {
 
         });
         this.data.filteredArticles = result;
+    }
+
+    resetFilteredArticles(){
+        this.data.filteredArticles = this.data.articles;
     }
 
     isInCartArticles(articleName) {
