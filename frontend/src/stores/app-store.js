@@ -52,21 +52,23 @@ class AppStore {
     handleArticleRemoved(ev) {
         this.data.selectedArticle = ev.article;
         this.removeArticle();
+        this.filterArticlesByCategory();
+        this.removeCartArticlesFromFilteredArticles();
         this.update({});
     }
 
     handleOneArticleRemoved(ev) {
         this.data.selectedArticle = ev.article;
-
         this.data.renderSaveButton = true;
-
         this.removeOneArticle();
+        this.removeCartArticlesFromFilteredArticles();
         this.update({});
     }
 
     handleCategoryChanged(ev) {
         this.data.selectedCategory = ev.data;
-        this.filterArticles(ev.data);
+        this.filterArticlesByCategory();
+        this.removeCartArticlesFromFilteredArticles();
         this.update({});
     }
 
@@ -93,7 +95,7 @@ class AppStore {
 
     handleCartArticlesReceived(ev) {
         this.setPurchase(ev.data);
-
+        this.removeCartArticlesFromFilteredArticles();
         this.data.renderArticles = true;
         this.data.renderPurchase = true;
         this.data.renderCategories = true;
@@ -126,6 +128,7 @@ class AppStore {
         this.data.selectedArticle = ev.article;
         this.data.renderSaveButton = true;
         this.addArticle();
+        this.removeCartArticlesFromFilteredArticles();
         this.update({});
     }
 
@@ -186,44 +189,49 @@ class AppStore {
         this.data.categoryOptions = categoryOptions;
     }
 
+    getCartArticleIndex(articleName) {
+        let cartArticles = this.data.purchase.cartArticles;
+        return cartArticles.findIndex(x => x.articleName === articleName);
+    }
+
     removeArticle() {
         const article = this.data.selectedArticle;
-        let purchase = this.data.purchase.cartArticles;
-        const index = purchase.findIndex(x => x.articleName === article.articleName);
-        purchase.splice(index, 1);
+        let cartArticles = this.data.purchase.cartArticles;
+        const index = this.getCartArticleIndex(article.articleName);
+        cartArticles.splice(index, 1);
     }
 
     removeOneArticle() {
         const article = this.data.selectedArticle;
-        let purchase = this.data.purchase.cartArticles;
+        let cartArticles = this.data.purchase.cartArticles;
 
-        let index = purchase.findIndex(x => x.articleName === article.articleName);
+        let index = this.getCartArticleIndex(article.articleName);
 
-        if (index >= 0 && purchase[index].amount > 1) {
-            purchase[index].amount--;
+        if (index >= 0 && cartArticles[index].amount > 1) {
+            cartArticles[index].amount--;
         } else {
-            purchase.splice(index, 1);
+            cartArticles.splice(index, 1);
         }
     }
 
     checkArticle(article) {
-        let purchase = this.data.purchase.cartArticles;
-        const index = purchase.findIndex(x => x.articleName === article.articleName);
-        if (purchase[index].done) {
-            purchase[index].done = false;
+        let cartArticles = this.data.purchase.cartArticles;
+        const index = this.getCartArticleIndex(article.articleName);
+        if (cartArticles[index].done) {
+            cartArticles[index].done = false;
         } else {
-            purchase[index].done = true;
+            cartArticles[index].done = true;
         }
-        return this.data.purchase.cartArticles = purchase;
+        return this.data.purchase.cartArticles = cartArticles;
     }
 
     addArticle() {
-        let purchase = this.data.purchase.cartArticles;
+        let cartArticles = this.data.purchase.cartArticles;
         let article = this.data.selectedArticle;
-        let index = purchase.findIndex(x => x.articleName === article.articleName);
+        let index = this.getCartArticleIndex(article.articleName);
 
         if (index >= 0) {
-            purchase[index].amount++;
+            cartArticles[index].amount++;
         } else {
             let newArticle = {
                 cartArticleUuid: article.articleUuid,
@@ -231,9 +239,9 @@ class AppStore {
                 categoryName: article.categoryName,
                 amount: 1
             };
-            purchase.push(newArticle);
+            cartArticles.push(newArticle);
         }
-        this.data.purchase.cartArticles = purchase;
+        this.data.purchase.cartArticles = cartArticles;
     }
 
     toLabelValue(ev) {
@@ -259,10 +267,37 @@ class AppStore {
         this.data.carts = carts;
     }
 
-    filterArticles(categoryName) {
+    filterArticlesByCategory() {
+        const categoryName = this.data.selectedCategory;
         const articles = this.data.articles;
         let filteredArticles = articles.filter(article => article.categoryName === categoryName || categoryName === 'Alle');
         this.data.filteredArticles = filteredArticles;
+    }
+
+    removeCartArticlesFromFilteredArticles() {
+        const filteredArticles = this.data.filteredArticles;
+        let result = [];
+
+
+        filteredArticles.map(article => {
+            const isInCart = this.isInCartArticles(article.articleName)
+
+            if (!isInCart) {
+                result.push(article);
+            }
+
+        });
+        this.data.filteredArticles = result;
+    }
+
+    isInCartArticles(articleName) {
+        const cartArticles = this.data.purchase.cartArticles;
+        const index = cartArticles.findIndex(article => article.articleName === articleName);
+        if (index >= 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 

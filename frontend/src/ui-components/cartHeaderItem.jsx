@@ -4,7 +4,7 @@ import {Button, ButtonGroup, Glyphicon, Panel} from "react-bootstrap";
 class CartHeaderItem extends Component {
 
     render() {
-        const {saveHandler, editCartHandler, editToggle} = this.props;
+        const {saveHandler, editCartHandler, editToggle, purchase} = this.props;
 
         return (<div>
             <Panel className="cart_item"
@@ -14,7 +14,7 @@ class CartHeaderItem extends Component {
 
                     <Panel.Title componentClass="h3">
 
-                        {this.props.purchase.name}
+                        {purchase.name}
 
                         <ButtonGroup className="cart_item_buttonGroup">
 
