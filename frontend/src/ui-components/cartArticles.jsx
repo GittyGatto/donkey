@@ -1,7 +1,7 @@
 import React from 'react';
 import CartItem from "./cartItem";
-import uuid from 'uuid';
 import CartHeaderItem from "./cartHeaderItem";
+import {Table} from "react-bootstrap";
 
 export default class CartArticles extends React.Component {
 
@@ -16,24 +16,30 @@ export default class CartArticles extends React.Component {
 
         if (this.props.purchase) {
             cartItem = this.props.purchase.cartArticles.map((article) => {
-                return (<span key={uuid.v4()}>
-                    <CartItem article={article}
-                              addHandler={addHandler}
-                              removeOneHandler={removeOneHandler}
-                              removeArticleHandler={removeArticleHandler}
-                              doneHandler={doneHandler}
-                              renderDoneBox={renderDoneBox}
-                              renderButtonPhalanx={renderButtonPhalanx}/>
-                </span>);
+                return (<CartItem article={article}
+                                  addHandler={addHandler}
+                                  removeOneHandler={removeOneHandler}
+                                  removeArticleHandler={removeArticleHandler}
+                                  doneHandler={doneHandler}
+                                  renderDoneBox={renderDoneBox}
+                                  renderButtonPhalanx={renderButtonPhalanx}/>);
             });
 
+            return (
+                <div>
+                    {cartHeaderItem}
+                    <Table striped bordered condensed hover className="cartArticles">
+                        <thead>
+                        <tr>
+                            <th>Anzal</th>
+                            <th>Artikel</th>
+                            <th>Aktion</th>
+                        </tr>
+                        </thead>
+                        {cartItem}
+                    </Table>
+                </div>
+            );
         }
-
-        return (
-            <div>
-                {cartHeaderItem}
-                {cartItem}
-            </div>
-        );
     }
 }

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Badge, Button, ButtonGroup, Checkbox, Glyphicon, Panel} from "react-bootstrap";
+import {Badge, Button, ButtonGroup, Checkbox, Glyphicon} from "react-bootstrap";
 
 class CartItem extends Component {
     render() {
@@ -10,52 +10,43 @@ class CartItem extends Component {
         let buttonPhalanx = undefined;
 
         if (renderDoneBox) {
-            doneBox = <Checkbox className="cart_item_checkbox"
-                                onChange={(ev) => doneHandler(ev, article)}
-                                checked={this.props.article.done}>
-            </Checkbox>
+            doneBox = <td>
+                <Checkbox className="cart_item_checkbox"
+                          onChange={(ev) => doneHandler(ev, article)}
+                          checked={this.props.article.done}>
+                </Checkbox>
+            </td>
         }
 
         if (renderButtonPhalanx) {
-            buttonPhalanx = <ButtonGroup className="cart_item_buttonGroup">
+            buttonPhalanx = <td>
+                <ButtonGroup>
 
-                <Button className="cart_item_button"
-                        onClick={(ev) => addHandler(ev, article)}>
-                    <Glyphicon glyph="plus"/></Button>
+                    <Button className="cart_item_button"
+                            onClick={(ev) => addHandler(ev, article)}>
+                        <Glyphicon glyph="plus"/></Button>
 
-                <Button className="cart_item_button"
-                        onClick={(ev) => removeOneHandler(ev, article)}>
-                    <Glyphicon glyph="minus"/></Button>
+                    <Button className="cart_item_button"
+                            onClick={(ev) => removeOneHandler(ev, article)}>
+                        <Glyphicon glyph="minus"/></Button>
 
-                <Button className="cart_item_button"
-                        onClick={(ev) => removeArticleHandler(ev, article)}>
-                    <Glyphicon glyph="erase"/></Button>
+                    <Button className="cart_item_button"
+                            onClick={(ev) => removeArticleHandler(ev, article)}>
+                        <Glyphicon glyph="erase"/></Button>
 
-            </ButtonGroup>
+                </ButtonGroup>
+            </td>
         }
 
 
-        return (<div>
-            <Panel className="cart_item"
-                   bsStyle="warning">
-
-                <Panel.Heading>
-
-                    <Panel.Title componentClass="h3">
-
-                        <Badge>{this.props.article.amount}</Badge> {this.props.article.articleName}
-
-                        {doneBox}
-
-                        {buttonPhalanx}
-
-                    </Panel.Title>
-
-                </Panel.Heading>
-
-            </Panel>
-
-        </div>);
+        return (<tbody>
+        <tr>
+            <td><Badge>{this.props.article.amount}</Badge></td>
+            <td>{this.props.article.articleName}</td>
+            {doneBox}
+            {buttonPhalanx}
+        </tr>
+        </tbody>);
     }
 }
 
