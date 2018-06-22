@@ -27,7 +27,9 @@
     "sass-loader": "^6.0.2",
     "sjcl": "^1.0.6",
     "uuid": "^3.2.1",
-    "xhr": "^2.4.0"
+    "xhr": "^2.4.0",
+    "jquery": "^1.9.1",
+    "popper.js": "^1.14.3"
   },
   "devDependencies": {
     "babel-core": "^6.23.1",
