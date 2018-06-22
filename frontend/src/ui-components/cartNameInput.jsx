@@ -1,4 +1,5 @@
 import React from 'react';
+import {Button, ControlLabel, FieldGroup, FormControl, FormGroup} from "react-bootstrap";
 
 
 export default class CartNameInput extends React.Component {
@@ -8,17 +9,18 @@ export default class CartNameInput extends React.Component {
 
         var value = this.props.value;
 
-        return (<div className="form-group cartNameInput">
-                <input className="form-control" type="text"
-                       placeholder="Cart Name"
-                       value={value}
-                       id="cartNameInput"
-                       onChange={(ev) => cartNameChanged(ev)}/>
-
-                <button className="btn btn-success"
-                        onClick={(ev) => submitHandler(ev)}>submit
-                </button>
-            </div>
-        );
+        return (<form className="form_input">
+            <FormGroup>
+                <ControlLabel>Donkey Name</ControlLabel>
+                <FormControl
+                    type="text"
+                    placeholder="Meine neue Donkeyliste"
+                    value={value}
+                    onChange={(ev) => cartNameChanged(ev)}/>
+                <Button bsStyle="success"
+                        id="submit_button"
+                        onClick={(ev) => submitHandler(ev)}>submit</Button>
+            </FormGroup>
+        </form>);
     }
 }

@@ -23,7 +23,7 @@ import saveNewCart from "../actions/save-new-cart-action";
 import backToCarts from "../actions/back-to-carts-action";
 import deleteCart from "../actions/delete-purchase-action";
 import editCart from "../actions/edit-cart-action";
-import {Col, DropdownButton, Grid, MenuItem, Row} from "react-bootstrap";
+import {Col, Grid, Row} from "react-bootstrap";
 import Header from "./header";
 
 export default class App extends React.Component {
@@ -156,7 +156,6 @@ export default class App extends React.Component {
         if (renderArticles) {
             articles = <Article articles={state.data.filteredArticles}
                                 articleChangeHandler={(e, article) => this._onArticleClicked(e, article)}
-
                                 selectedCategory={state.data.selectedCategory}
                                 categoryChangeHandler={(e) => this._onCategoryChange(e)}
                                 categoryOptions={state.data.categoryOptions}/>
@@ -177,8 +176,7 @@ export default class App extends React.Component {
 
 
         if (renderCartNameInput) {
-            cartNameInput = <CartNameInput className="form-field-name"
-                                           submitHandler={this._onSubmitClicked}
+            cartNameInput = <CartNameInput submitHandler={this._onSubmitClicked}
                                            cartNameChanged={this._onCartNameChanged}/>
         }
 
@@ -201,6 +199,7 @@ export default class App extends React.Component {
                         <Col xs={12}>{carts}</Col>
                         <Col xs={9}>{purchase}</Col>
                         <Col xs={3}>{articles}</Col>
+                        <Col xs={12}>{cartNameInput}</Col>
 
                     </Row>
 

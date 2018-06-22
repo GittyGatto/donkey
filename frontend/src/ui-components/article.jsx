@@ -10,6 +10,7 @@ export default class Article extends React.Component {
         const {articleChangeHandler, categoryChangeHandler, categoryOptions, selectedCategory, articles} = this.props;
 
         const cartHeaderItem = <Select name="form-field-name"
+                                       clearable={false}
                                        value={selectedCategory}
                                        onChange={categoryChangeHandler}
                                        options={categoryOptions}/>;
