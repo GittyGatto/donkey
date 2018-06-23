@@ -17,6 +17,8 @@ class AppStore {
             categoryOptions: [],
             selectedCategory: 'Alle',
 
+            completedArticles: undefined,
+
             renderArticles: false,
             articles: [],
             filteredArticles: [],
@@ -34,6 +36,7 @@ class AppStore {
 
     handleArticleChecked(ev) {
         this.data.purchase.cartArticles = this.checkArticle(ev.article);
+        this.data.completedArticles = this.getCompletedArticles(this.data.purchase.cartArticles);
         this.update({});
     }
 
@@ -51,6 +54,7 @@ class AppStore {
 
     handleArticleRemoved(ev) {
         this.data.selectedArticle = ev.article;
+        this.data.completedArticles = this.getCompletedArticles(this.data.purchase.cartArticles);
         this.removeArticle();
         this.filterArticlesByCategory();
         this.removeCartArticlesFromFilteredArticles();
@@ -60,6 +64,7 @@ class AppStore {
     handleOneArticleRemoved(ev) {
         this.data.selectedArticle = ev.article;
         this.data.renderSaveButton = true;
+        this.data.completedArticles = this.getCompletedArticles(this.data.purchase.cartArticles);
         this.removeOneArticle();
         this.resetFilteredArticles();
         this.removeCartArticlesFromFilteredArticles();
@@ -96,6 +101,7 @@ class AppStore {
 
     handleCartArticlesReceived(ev) {
         this.setPurchase(ev.data);
+        this.data.completedArticles = this.getCompletedArticles(this.data.purchase.cartArticles);
         this.removeCartArticlesFromFilteredArticles();
         this.data.renderArticles = true;
         this.data.renderPurchase = true;
@@ -194,6 +200,12 @@ class AppStore {
         let cartArticles = this.data.purchase.cartArticles;
         return cartArticles.findIndex(x => x.articleName === articleName);
     }
+
+    getCompletedArticles(cartArticles){
+        let completedArticles = cartArticles.filter(article => article.done === true);
+        return completedArticles.length;
+    }
+
 
     removeArticle() {
         const article = this.data.selectedArticle;

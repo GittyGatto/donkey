@@ -6,12 +6,14 @@ import {Table} from "react-bootstrap";
 export default class CartArticles extends React.Component {
 
     render() {
-        const {addHandler, removeOneHandler, removeArticleHandler, saveHandler, doneHandler, purchase, editCartHandler, renderDoneBox, editToggle, renderButtonPhalanx} = this.props;
+        const {addHandler, removeOneHandler, removeArticleHandler, saveHandler, doneHandler, purchase, editCartHandler, renderDoneBox, editToggle, renderButtonPhalanx, completedArticles} = this.props;
 
         const cartHeaderItem = <CartHeaderItem purchase={purchase}
                                                saveHandler={saveHandler}
                                                editCartHandler={editCartHandler}
-                                               editToggle={editToggle}/>;
+                                               editToggle={editToggle}
+                                               completedArticles={completedArticles}
+                                               totalArticles={purchase.cartArticles.length}/>;
         let cartItem;
 
         if (this.props.purchase) {
@@ -28,12 +30,12 @@ export default class CartArticles extends React.Component {
             return (
                 <div>
                     {cartHeaderItem}
-                    <Table striped bordered condensed hover className="cartArticles">
+                    <Table bordered condensed hover className="cartArticles">
                         <thead>
                         <tr>
                             <th>Anzal</th>
                             <th>Artikel</th>
-                            <th>Aktion</th>
+                            <th>Editieren</th>
                         </tr>
                         </thead>
                         {cartItem}

@@ -17,8 +17,7 @@ export default class CartSelection extends React.Component {
                 return (<span key={cart.uuid}>
             <CartSelectionItem value={cart} cart={cart}
                                changeHandler={changeHandler}/>
-                </span>
-                );
+                </span>);
             });
         }
 

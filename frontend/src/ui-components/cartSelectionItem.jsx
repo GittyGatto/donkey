@@ -11,8 +11,6 @@ export default class CartSelectionItem extends Component {
                     bsStyle="info"
                     onClick={(ev) => changeHandler(ev, value)}>
                 {this.props.cart.name} <Badge>{this.props.cart.cartArticles.length}</Badge>
-
-            </Button>
-        );
+            </Button>);
     }
 }

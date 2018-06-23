@@ -150,7 +150,8 @@ export default class App extends React.Component {
                                      saveHandler={this._onSaveClicked}
                                      editCartHandler={this._onEditCartClicked}
                                      editToggle={state.data.editToggle}
-                                     renderButtonPhalanx={state.data.renderCartEditButtonPhalanx}/>
+                                     renderButtonPhalanx={state.data.renderCartEditButtonPhalanx}
+                                     completedArticles={state.data.completedArticles}/>
         }
 
         if (renderArticles) {
