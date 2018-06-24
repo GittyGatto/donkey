@@ -21,6 +21,7 @@ import Article from "./article";
 import CartSelection from "./cartSelection";
 import saveNewCart from "../actions/save-new-cart-action";
 import backToCarts from "../actions/back-to-carts-action";
+import backToCartArticles from "../actions/back-to-cartArticles-action";
 import deleteCart from "../actions/delete-purchase-action";
 import editCart from "../actions/edit-cart-action";
 import {Col, Grid, Row} from "react-bootstrap";
@@ -96,8 +97,12 @@ export default class App extends React.Component {
         cartNameChanged(ev.target.value);
     }
 
-    _onBackClicked(ev) {
+    _onBackToCartsClicked(ev) {
         backToCarts();
+    }
+
+    _onBackToCartArticles(ev){
+        backToCartArticles(ev);
     }
 
     _onDeleteClicked(ev) {
@@ -129,9 +134,7 @@ export default class App extends React.Component {
         const renderPurchase = state.data.renderPurchase;
         const renderActionPanel = state.data.renderActionPanel;
         const renderCarts = state.data.renderCarts;
-
-        const header = <Header backHandler={this._onBackClicked}/>
-
+        const header = <Header backHandler={this._onBackToCartsClicked}/>
 
         if (renderCarts) {
             carts = <CartSelection carts={state.data.carts}
@@ -146,12 +149,10 @@ export default class App extends React.Component {
                                      removeOneHandler={(e, article) => this._onRemoveOneClicked(e, article)}
                                      removeArticleHandler={(e, article) => this._onRemoveArticleClicked(e, article)}
                                      doneHandler={(e, article) => this._onDoneClicked(e, article)}
-                                     renderDoneBox={state.data.renderDoneBox}
                                      saveHandler={this._onSaveClicked}
                                      editCartHandler={this._onEditCartClicked}
-                                     editToggle={state.data.editToggle}
-                                     renderButtonPhalanx={state.data.renderCartEditButtonPhalanx}
-                                     completedArticles={state.data.completedArticles}/>
+                                     completedArticles={state.data.completedArticles}
+                                     backHandler={this._onBackToCartsClicked}/>
         }
 
         if (renderArticles) {
@@ -159,7 +160,8 @@ export default class App extends React.Component {
                                 articleChangeHandler={(e, article) => this._onArticleClicked(e, article)}
                                 selectedCategory={state.data.selectedCategory}
                                 categoryChangeHandler={(e) => this._onCategoryChange(e)}
-                                categoryOptions={state.data.categoryOptions}/>
+                                categoryOptions={state.data.categoryOptions}
+                                backToCartArticles={this._onBackToCartArticles}/>
         }
 
 
@@ -167,7 +169,7 @@ export default class App extends React.Component {
             actionPanel = <CartActionPanel className="form-field-name"
                                            saveHandler={this._onSaveClicked}
                                            newCartHandler={this._onNewCartClicked}
-                                           backHandler={this._onBackClicked}
+                                           backHandler={this._onBackToCartsClicked}
                                            deleteHandler={this._onDeleteClicked}
                                            renderNewButton={state.data.renderNewButton}
                                            renderSaveButton={state.data.renderSaveButton}
@@ -198,8 +200,8 @@ export default class App extends React.Component {
                     <Row className="show-grid">
 
                         <Col xs={12}>{carts}</Col>
-                        <Col xs={9}>{purchase}</Col>
-                        <Col xs={3}>{articles}</Col>
+                        <Col xs={12}>{purchase}</Col>
+                        <Col xs={12}>{articles}</Col>
                         <Col xs={12}>{cartNameInput}</Col>
 
                     </Row>

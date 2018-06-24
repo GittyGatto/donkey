@@ -7,8 +7,9 @@ export default class ArticleItem extends Component {
         const {articleChangeHandler, value, article} = this.props;
 
         return (
-            <Button bsStyle="info"
-                    className="big_button"
+            <Button className="big_button"
+                    bsStyle="success"
+                    bsSize="lg"
                     onClick={(ev) => articleChangeHandler(ev, value)}>
 
                 {article.articleName}

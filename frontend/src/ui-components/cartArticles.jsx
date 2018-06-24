@@ -1,17 +1,26 @@
 import React from 'react';
 import CartItem from "./cartItem";
 import CartHeaderItem from "./cartHeaderItem";
-import {Table} from "react-bootstrap";
+import {Button, Glyphicon, Table} from "react-bootstrap";
 
 export default class CartArticles extends React.Component {
 
     render() {
-        const {addHandler, removeOneHandler, removeArticleHandler, saveHandler, doneHandler, purchase, editCartHandler, renderDoneBox, editToggle, renderButtonPhalanx, completedArticles} = this.props;
+        const {addHandler, removeOneHandler, removeArticleHandler, saveHandler, doneHandler, purchase, editCartHandler, completedArticles, backHandler} = this.props;
+
+
+        const backButton = <Button className="big_button"
+                                   bsStyle="info"
+                                   bsSize="lg"
+                                   onClick={backHandler}><Glyphicon className="big_icon" glyph="chevron-left"/></Button>
+
+        const editCartArticles = <Button className="big_button"
+                                         bsStyle="success"
+                                         bsSize="lg"
+                                         onClick={editCartHandler}><Glyphicon className="big_icon" glyph="plus"/></Button>
 
         const cartHeaderItem = <CartHeaderItem purchase={purchase}
                                                saveHandler={saveHandler}
-                                               editCartHandler={editCartHandler}
-                                               editToggle={editToggle}
                                                completedArticles={completedArticles}
                                                totalArticles={purchase.cartArticles.length}/>;
         let cartItem;
@@ -22,24 +31,17 @@ export default class CartArticles extends React.Component {
                                   addHandler={addHandler}
                                   removeOneHandler={removeOneHandler}
                                   removeArticleHandler={removeArticleHandler}
-                                  doneHandler={doneHandler}
-                                  renderDoneBox={renderDoneBox}
-                                  renderButtonPhalanx={renderButtonPhalanx}/>);
+                                  doneHandler={doneHandler}/>);
             });
 
             return (
                 <div>
+                    {backButton}
                     {cartHeaderItem}
-                    <Table bordered condensed hover className="cartArticles">
-                        <thead>
-                        <tr>
-                            <th>Anzal</th>
-                            <th>Artikel</th>
-                            <th>Editieren</th>
-                        </tr>
-                        </thead>
+                    <Table hover className="cartArticles">
                         {cartItem}
                     </Table>
+                    {editCartArticles}
                 </div>
             );
         }

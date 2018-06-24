@@ -9,6 +9,12 @@ html {
 .big_button {
   width: 100%;
   margin: 0.1em;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+
+.big_icon {
+  font-size: 1.2em;
 }
 
 .cart_item {
@@ -24,17 +30,17 @@ html {
 }
 
 .cart_item_checkbox {
-  transform: scale(1.3);
+  transform: scale(1.5);
   margin-top: 0.1em;
   margin-right: 0.5em;
 }
 
-.cartArticles{
+.cartArticles {
   text-align: center;
   vertical-align: middle;
 }
 
-.form_input{
+.form_input {
   margin-top: 1em;
 }
 
@@ -42,12 +48,24 @@ html {
   margin-top: 0.5em;
 }
 
-.cart_status{
+.cart_status {
   font-size: small;
 }
 
-.cart_progress{
+.cart_progress {
   margin: auto;
   width: 75%;
   margin-bottom: 1em;
+}
+
+.red {
+  color: #ff0020;
+}
+
+.green {
+  color: #178000;
+}
+
+.orange {
+  color: #ff7100;
 }

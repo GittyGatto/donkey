@@ -9,6 +9,7 @@ export default class CartSelectionItem extends Component {
         return (
             <Button className="big_button"
                     bsStyle="info"
+                    bsSize="lg"
                     onClick={(ev) => changeHandler(ev, value)}>
                 {this.props.cart.name} <Badge>{this.props.cart.cartArticles.length}</Badge>
             </Button>);

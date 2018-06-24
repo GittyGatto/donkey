@@ -10,7 +10,6 @@ class AppStore {
             renderDeleteButton: false,
 
             renderCarts: false,
-            renderDoneBox: false,
             carts: [],
 
             renderCategories: false,
@@ -27,7 +26,6 @@ class AppStore {
             renderPurchase: false,
             purchase: [],
             editToggle: false,
-            renderCartEditButtonPhalanx: false,
 
             renderCartNameInput: false,
             cartNameInput: '',
@@ -54,20 +52,20 @@ class AppStore {
 
     handleArticleRemoved(ev) {
         this.data.selectedArticle = ev.article;
-        this.data.completedArticles = this.getCompletedArticles(this.data.purchase.cartArticles);
         this.removeArticle();
         this.filterArticlesByCategory();
         this.removeCartArticlesFromFilteredArticles();
+        this.data.completedArticles = this.getCompletedArticles(this.data.purchase.cartArticles);
         this.update({});
     }
 
     handleOneArticleRemoved(ev) {
         this.data.selectedArticle = ev.article;
         this.data.renderSaveButton = true;
-        this.data.completedArticles = this.getCompletedArticles(this.data.purchase.cartArticles);
         this.removeOneArticle();
         this.resetFilteredArticles();
         this.removeCartArticlesFromFilteredArticles();
+        this.data.completedArticles = this.getCompletedArticles(this.data.purchase.cartArticles);
         this.update({});
     }
 
@@ -103,16 +101,11 @@ class AppStore {
         this.setPurchase(ev.data);
         this.data.completedArticles = this.getCompletedArticles(this.data.purchase.cartArticles);
         this.removeCartArticlesFromFilteredArticles();
-        this.data.renderArticles = true;
         this.data.renderPurchase = true;
         this.data.renderCategories = true;
-        this.data.renderCartEditButtonPhalanx = true;
-        this.data.renderDoneBox = false;
         this.data.renderCarts = false;
         this.data.renderCartNameInput = false;
-
-        this.data.renderBackButton = true;
-        this.data.renderDeleteButton = true;
+        this.data.renderArticles = false;
 
         this.update({});
     }
@@ -160,7 +153,14 @@ class AppStore {
     }
 
     handleEditCartClicked(ev) {
-        this.cartEditToggle();
+        this.data.renderPurchase = false;
+        this.data.renderArticles = true;
+        this.update({});
+    }
+
+    handleBackToCartArticlesClicked(ev)        {
+        this.data.renderPurchase = true;
+        this.data.renderArticles = false;
         this.update({});
     }
 
@@ -173,12 +173,10 @@ class AppStore {
             this.data.renderPurchase = true;
             this.data.renderArticles = true;
             this.data.renderDoneBox = false;
-            this.data.renderCartEditButtonPhalanx = true;
         } else {
             this.data.renderPurchase = true;
             this.data.renderArticles = false;
             this.data.renderDoneBox = true;
-            this.data.renderCartEditButtonPhalanx = false;
         }
         this.data.editToggle = !this.data.editToggle;
     }
