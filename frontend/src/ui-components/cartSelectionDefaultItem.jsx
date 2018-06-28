@@ -10,7 +10,7 @@ export default class CartSelectionDefaultItem extends Component {
             <Button className="big_button"
                     bsStyle="warning"
                     bsSize="lg"
-                    onClick={newCartHandler}>new donkey <Glyphicon glyph="plus"/>
+                    onClick={newCartHandler}>new donkey <Glyphicon glyph="plus turquoise"/>
             </Button>
         );
     }
