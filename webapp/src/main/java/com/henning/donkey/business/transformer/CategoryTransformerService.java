@@ -21,7 +21,7 @@ public class CategoryTransformerService {
 
     private CategoryDto toCategoryDto(CategoryEntity ce) {
         String categoryName = ce.getCategoryName();
-
-        return new CategoryDto(categoryName, categoryName);
+        String categoryUuid = ce.getCategoryUuid();
+        return new CategoryDto(categoryUuid, categoryName);
     }
 }
