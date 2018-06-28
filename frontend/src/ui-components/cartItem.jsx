@@ -6,7 +6,6 @@ class CartItem extends Component {
 
         const {addHandler, removeOneHandler, removeArticleHandler, doneHandler, article} = this.props;
 
-
         return (<tbody>
         <tr>
             <td>
@@ -24,19 +23,19 @@ class CartItem extends Component {
                             bsSize="lg"
                             onClick={(ev) => addHandler(ev, article)}>
                         <Glyphicon className="big_icon green"
-                            glyph="plus-sign"/></Button>
+                                   glyph="plus-sign"/></Button>
 
                     <Button className="cart_item_button"
                             bsSize="lg"
                             onClick={(ev) => removeOneHandler(ev, article)}>
                         <Glyphicon className="big_icon orange"
-                            glyph="minus-sign"/></Button>
+                                   glyph="minus-sign"/></Button>
 
                     <Button className="cart_item_button"
                             bsSize="lg"
                             onClick={(ev) => removeArticleHandler(ev, article)}>
                         <Glyphicon className="big_icon red"
-                            glyph="remove"/></Button>
+                                   glyph="remove"/></Button>
 
                 </ButtonGroup>
             </td>

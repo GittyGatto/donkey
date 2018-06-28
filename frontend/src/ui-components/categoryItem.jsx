@@ -1,16 +1,15 @@
 import React, {Component} from 'react';
+import {Button} from "react-bootstrap";
 
 class CategoryItem extends Component {
 
     render() {
-        const {changeHandler, value} = this.props;
+        const {categoryChangeHandler, category, value} = this.props;
 
-        return (
-            <button className="btn btn-primary"
-                onClick={(ev) => changeHandler(ev, value)}>
-                {this.props.category.title}
-            </button>
-        );
+        return (<Button className="cat_filter"
+                        onClick={(ev) => categoryChangeHandler(ev, value)}>
+            {category.name}
+        </Button>);
     }
 }
 

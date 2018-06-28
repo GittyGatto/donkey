@@ -1,29 +1,33 @@
 import React from 'react';
 import ArticleItem from "./articleItem";
-import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import {Button, Glyphicon} from "react-bootstrap";
+import CategoryItem from "./categoryItem";
 
 
 export default class Article extends React.Component {
 
     render() {
-        const {articleChangeHandler, categoryChangeHandler, categoryOptions, selectedCategory, articles, backToCartArticles} = this.props;
+        const {articleChangeHandler, categoryChangeHandler, categoryOptions, articles, backToCartArticles} = this.props;
 
-        const cartHeaderItem = <Select name="form-field-name"
-                                       clearable={false}
-                                       value={selectedCategory}
-                                       onChange={categoryChangeHandler}
-                                       options={categoryOptions}/>;
+        let categoryFilter;
+        if (categoryOptions) {
+            categoryFilter = categoryOptions.map(category => {
+                return (<span key={category.uuid}>
+                    <CategoryItem categoryChangeHandler={categoryChangeHandler}
+                                  categoryOptions={categoryOptions}
+                                  category={category}
+                                  value={category}/>
+                </span>)
+            });
+        }
 
         const backButton = <Button className="big_button"
-                                           bsStyle="info"
-                                           bsSize="lg"
-                                           onClick={backToCartArticles}><Glyphicon className="big_icon" glyph="ok"/></Button>;
+                                   bsStyle="info"
+                                   bsSize="lg"
+                                   onClick={backToCartArticles}><Glyphicon className="big_icon" glyph="ok"/></Button>;
 
         let articleItem;
-
-
         if (articles) {
             articleItem = articles.map((article) => {
                 return (<span key={article.articleUuid}>
@@ -41,7 +45,7 @@ export default class Article extends React.Component {
 
             {backButton}
 
-            {cartHeaderItem}
+            {categoryFilter}
 
             {articleItem}
 

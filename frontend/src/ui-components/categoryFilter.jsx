@@ -10,7 +10,7 @@ class CategoryFilter extends Component {
 
         let categoryItem;
 
-        if (this.props.categories) {
+        if (categories) {
             categoryItem = categories.map(category => {
                 return (
 

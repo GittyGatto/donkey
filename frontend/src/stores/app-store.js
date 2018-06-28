@@ -77,8 +77,7 @@ class AppStore {
     }
 
     handleCategoriesReceived(ev) {
-        this.toLabelValue(ev);
-        this.addDefaultCategory();
+        this.data.categoryOptions = ev.data;
         this.update({});
     }
 

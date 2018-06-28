@@ -1,7 +1,15 @@
 import React from 'react';
+import appStore from '../stores/app-store';
+import uuid from 'uuid';
+import Select from 'react-select';
+import CartActionPanel from "./panelButtons";
+import CartNameInput from "./cartNameInput";
+import CartArticles from "./cartArticles";
+import Article from "./article";
+import CartSelection from "./cartSelection";
+import Header from "./header";
 import 'react-select/dist/react-select.css';
 import '../../styles/index.scss';
-import uuid from 'uuid';
 import addArticle from '../actions/add-article-action';
 import newCart from "../actions/new-cart-action";
 import cartNameChanged from "../actions/cart-name-changed-action";
@@ -12,20 +20,13 @@ import getCartArticles from '../actions/get-cart-articles-action';
 import savePurchase from '../actions/save-purchase-action';
 import getPurchase from "../actions/get-purchase-action";
 import checkedArticle from "../actions/checked-article-action"
-import appStore from '../stores/app-store';
-import Select from 'react-select';
-import CartActionPanel from "./panelButtons";
-import CartNameInput from "./cartNameInput";
-import CartArticles from "./cartArticles";
-import Article from "./article";
-import CartSelection from "./cartSelection";
 import saveNewCart from "../actions/save-new-cart-action";
 import backToCarts from "../actions/back-to-carts-action";
 import backToCartArticles from "../actions/back-to-cartArticles-action";
 import deleteCart from "../actions/delete-purchase-action";
 import editCart from "../actions/edit-cart-action";
 import {Col, Grid, Row} from "react-bootstrap";
-import Header from "./header";
+
 
 export default class App extends React.Component {
     constructor(props) {
@@ -53,8 +54,8 @@ export default class App extends React.Component {
         getPurchase(cart.name);
     }
 
-    _onCategoryChange(ev) {
-        getCategoryArticles(ev.value);
+    _onCategoryChange(ev, category) {
+        getCategoryArticles(category.name);
     }
 
     _onArticleClicked(ev, article) {
@@ -101,7 +102,7 @@ export default class App extends React.Component {
         backToCarts();
     }
 
-    _onBackToCartArticles(ev){
+    _onBackToCartArticles(ev) {
         backToCartArticles(ev);
     }
 
@@ -158,8 +159,7 @@ export default class App extends React.Component {
         if (renderArticles) {
             articles = <Article articles={state.data.filteredArticles}
                                 articleChangeHandler={(e, article) => this._onArticleClicked(e, article)}
-                                selectedCategory={state.data.selectedCategory}
-                                categoryChangeHandler={(e) => this._onCategoryChange(e)}
+                                categoryChangeHandler={(e, category) => this._onCategoryChange(e, category)}
                                 categoryOptions={state.data.categoryOptions}
                                 backToCartArticles={this._onBackToCartArticles}/>
         }

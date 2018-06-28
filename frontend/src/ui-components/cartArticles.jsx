@@ -17,16 +17,16 @@ export default class CartArticles extends React.Component {
         const editCartArticles = <Button className="big_button"
                                          bsStyle="success"
                                          bsSize="lg"
-                                         onClick={editCartHandler}><Glyphicon className="big_icon" glyph="plus"/></Button>
+                                         onClick={editCartHandler}><Glyphicon className="big_icon"
+                                                                              glyph="plus"/></Button>
 
         const cartHeaderItem = <CartHeaderItem purchase={purchase}
                                                saveHandler={saveHandler}
                                                completedArticles={completedArticles}
                                                totalArticles={purchase.cartArticles.length}/>;
         let cartItem;
-
-        if (this.props.purchase) {
-            cartItem = this.props.purchase.cartArticles.map((article) => {
+        if (purchase) {
+            cartItem = purchase.cartArticles.map((article) => {
                 return (<CartItem article={article}
                                   addHandler={addHandler}
                                   removeOneHandler={removeOneHandler}
