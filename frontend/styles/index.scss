@@ -13,8 +13,20 @@ html {
   margin-top: 0.5em;
 }
 
+.cart_article_true {
+  background-color: yellowgreen;
+}
+
+.cart_article_false {
+  background-color: #ffd927;
+}
+
 .big_icon {
   font-size: 1.2em;
+}
+
+.big_badge {
+  transform: scale(1.5);
 }
 
 .cart_item {
@@ -43,7 +55,8 @@ html {
 .cat_filter {
   background-color: black;
   color: white;
-  margin-right: 1em;
+  margin-right: 0.5em;
+  margin-right: 0.5em;
 }
 
 .form_input {
@@ -76,6 +89,6 @@ html {
   color: #ff7100;
 }
 
-.turquoise{
+.turquoise {
   color: #17a2b8;
 }

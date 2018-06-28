@@ -6,15 +6,16 @@ class CartItem extends Component {
 
         const {addHandler, removeOneHandler, removeArticleHandler, doneHandler, article} = this.props;
 
-        return (<tbody>
+        return (<tbody className={"cart_article_" + article.done}
+                       onClick={(ev) => doneHandler(ev, article)}>
         <tr>
             <td>
                 <Checkbox className="cart_item_checkbox"
                           onChange={(ev) => doneHandler(ev, article)}
-                          checked={this.props.article.done}>
+                          checked={article.done}>
                 </Checkbox>
             </td>
-            <td><Badge>{this.props.article.amount}</Badge></td>
+            <td><Badge className="big_badge">{this.props.article.amount}</Badge></td>
             <td>{this.props.article.articleName}</td>
             <td>
                 <ButtonGroup>

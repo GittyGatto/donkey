@@ -157,7 +157,7 @@ class AppStore {
         this.update({});
     }
 
-    handleBackToCartArticlesClicked(ev)        {
+    handleBackToCartArticlesClicked(ev) {
         this.data.renderPurchase = true;
         this.data.renderArticles = false;
         this.update({});
@@ -198,7 +198,7 @@ class AppStore {
         return cartArticles.findIndex(x => x.articleName === articleName);
     }
 
-    getCompletedArticles(cartArticles){
+    getCompletedArticles(cartArticles) {
         let completedArticles = cartArticles.filter(article => article.done === true);
         return completedArticles.length;
     }
@@ -300,7 +300,7 @@ class AppStore {
         this.data.filteredArticles = result;
     }
 
-    resetFilteredArticles(){
+    resetFilteredArticles() {
         this.data.filteredArticles = this.data.articles;
     }
 
