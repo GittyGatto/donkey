@@ -6,7 +6,7 @@ import {Button, Glyphicon, Table} from "react-bootstrap";
 export default class CartArticles extends React.Component {
 
     render() {
-        const {addHandler, removeOneHandler, removeArticleHandler, saveHandler, doneHandler, purchase, editCartHandler, completedArticles, backHandler} = this.props;
+        const {addHandler, removeOneHandler, removeArticleHandler, saveHandler, doneHandler, purchase, editCartHandler, completedArticles, backHandler, deleteHandler} = this.props;
 
 
         const backButton = <Button className="big_button"
@@ -22,6 +22,7 @@ export default class CartArticles extends React.Component {
 
         const cartHeaderItem = <CartHeaderItem purchase={purchase}
                                                saveHandler={saveHandler}
+                                               deleteHandler={deleteHandler}
                                                completedArticles={completedArticles}
                                                totalArticles={purchase.cartArticles.length}/>;
         let cartItem;

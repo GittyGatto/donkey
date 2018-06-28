@@ -4,8 +4,8 @@ import {Badge, Button, ButtonGroup, Glyphicon, Panel, ProgressBar} from "react-b
 class CartHeaderItem extends Component {
 
     render() {
-        const {saveHandler, editCartHandler, editToggle, purchase, completedArticles, totalArticles} = this.props;
-        const now = completedArticles/totalArticles*100;
+        const {saveHandler, purchase, completedArticles, totalArticles, deleteHandler} = this.props;
+        const now = completedArticles / totalArticles * 100;
 
         return (<div>
             <Panel className="cart_item">
@@ -16,11 +16,14 @@ class CartHeaderItem extends Component {
                             <Button className="cart_item_button"
                                     bsStyle="info"
                                     onClick={(ev) => saveHandler(ev)}><Glyphicon glyph="save"/> Save</Button>
+                            <Button className="cart_item_button"
+                                    bsStyle="danger"
+                                    onClick={(ev) => deleteHandler(ev)}><Glyphicon glyph="trash"/> Delete</Button>
                         </ButtonGroup>
                     </Panel.Title>
                 </Panel.Heading>
                 <Panel.Body>Status: <Badge>{completedArticles}</Badge> / <Badge>{totalArticles}</Badge></Panel.Body>
-                <ProgressBar className="cart_progress" now={now} />
+                <ProgressBar className="cart_progress" now={now}/>
             </Panel>
         </div>);
     }

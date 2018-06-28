@@ -153,7 +153,8 @@ export default class App extends React.Component {
                                      saveHandler={this._onSaveClicked}
                                      editCartHandler={this._onEditCartClicked}
                                      completedArticles={state.data.completedArticles}
-                                     backHandler={this._onBackToCartsClicked}/>
+                                     backHandler={this._onBackToCartsClicked}
+                                     deleteHandler={this._onDeleteClicked}/>
         }
 
         if (renderArticles) {
