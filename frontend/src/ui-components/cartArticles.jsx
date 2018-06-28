@@ -38,6 +38,7 @@ export default class CartArticles extends React.Component {
                 <div>
                     {backButton}
                     {cartHeaderItem}
+                    {editCartArticles}
                     <Table hover className="cartArticles">
                         {cartItem}
                     </Table>
