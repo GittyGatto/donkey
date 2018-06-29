@@ -162,7 +162,8 @@ export default class App extends React.Component {
                                 articleChangeHandler={(e, article) => this._onArticleClicked(e, article)}
                                 categoryChangeHandler={(e, category) => this._onCategoryChange(e, category)}
                                 categoryOptions={state.data.categoryOptions}
-                                backToCartArticles={this._onBackToCartArticles}/>
+                                backToCartArticles={this._onBackToCartArticles}
+                                donkeyName={state.data.purchase.name}/>
         }
 
 

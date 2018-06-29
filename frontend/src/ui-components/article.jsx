@@ -8,7 +8,7 @@ import CategoryItem from "./categoryItem";
 export default class Article extends React.Component {
 
     render() {
-        const {articleChangeHandler, categoryChangeHandler, categoryOptions, articles, backToCartArticles} = this.props;
+        const {articleChangeHandler, categoryChangeHandler, categoryOptions, articles, backToCartArticles, donkeyName} = this.props;
 
         let categoryFilter;
         if (categoryOptions) {
@@ -42,6 +42,8 @@ export default class Article extends React.Component {
         }
 
         return (<div>
+
+            <h3>{donkeyName}</h3>
 
             {backButton}
 

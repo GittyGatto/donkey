@@ -186,13 +186,6 @@ class AppStore {
         this.data.purchase = carts[index];
     }
 
-    addDefaultCategory() {
-        let categoryOptions = this.data.categoryOptions;
-        const defaultOption = {label: 'Alle', value: 'Alle', clearableValue: false};
-        categoryOptions.push(defaultOption);
-        this.data.categoryOptions = categoryOptions;
-    }
-
     getCartArticleIndex(articleName) {
         let cartArticles = this.data.purchase.cartArticles;
         return cartArticles.findIndex(x => x.articleName === articleName);
@@ -247,20 +240,12 @@ class AppStore {
                 cartArticleUuid: article.articleUuid,
                 articleName: article.articleName,
                 categoryName: article.categoryName,
+                done: false,
                 amount: 1
             };
             cartArticles.push(newArticle);
         }
         this.data.purchase.cartArticles = cartArticles;
-    }
-
-    toLabelValue(ev) {
-        let labelValues = [];
-        ev.data.forEach(e => {
-            const labelValue = {label: e.name, value: e.name, clearableValue: false};
-            labelValues.push(labelValue);
-        })
-        this.data.categoryOptions = labelValues;
     }
 
     addCartToCarts(NewCart) {
