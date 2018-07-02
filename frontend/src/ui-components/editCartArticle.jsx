@@ -6,15 +6,11 @@ export default class EditCartArticle extends Component {
     render() {
         const {addHandler, removeOneHandler, backHandler, article, purchase} = this.props;
 
-        let minusButton = undefined;
+        let minusButtonActive = undefined;
         if (article.amount > 1) {
-            minusButton = <Button className="cart_item_button"
-                                  bsStyle="danger"
-                                  bsSize="lg"
-                                  onClick={(ev) => removeOneHandler(ev, article)}>
-                <Glyphicon className="big_icon"
-                           glyph="minus"/></Button>
-
+            minusButtonActive = true;
+        } else {
+            minusButtonActive = false;
         }
 
         return (<div>
@@ -38,7 +34,13 @@ export default class EditCartArticle extends Component {
                                 <Glyphicon className="big_icon"
                                            glyph="plus"/></Button>
 
-                            {minusButton}
+                            <Button className="cart_item_button"
+                                    bsStyle="danger"
+                                    bsSize="lg"
+                                    disabled={!minusButtonActive}
+                                    onClick={(ev) => removeOneHandler(ev, article)}>
+                                <Glyphicon className="big_icon"
+                                           glyph="minus"/></Button>
 
                         </ButtonGroup>
                     </td>
