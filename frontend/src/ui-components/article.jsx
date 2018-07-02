@@ -22,6 +22,14 @@ export default class Article extends React.Component {
             });
         }
 
+        let secondBackButton;
+        if (articles.length > 4){
+            secondBackButton = <Button className="big_button"
+                                       bsStyle="info"
+                                       bsSize="lg"
+                                       onClick={backToCartArticles}><Glyphicon className="big_icon" glyph="chevron-left"/></Button>;
+        }
+
         const backButton = <Button className="big_button"
                                    bsStyle="info"
                                    bsSize="lg"
@@ -51,7 +59,7 @@ export default class Article extends React.Component {
 
             {articleItem}
 
-            {backButton}
+            {secondBackButton}
 
         </div>);
     }

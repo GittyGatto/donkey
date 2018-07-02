@@ -8,7 +8,6 @@ export default class CartArticles extends React.Component {
     render() {
         const {addHandler, removeOneHandler, removeArticleHandler, saveHandler, doneHandler, purchase, editCartHandler, completedArticles, backHandler, deleteHandler, onEditClicked} = this.props;
 
-
         const backButton = <Button className="big_button"
                                    bsStyle="info"
                                    bsSize="lg"
@@ -18,13 +17,23 @@ export default class CartArticles extends React.Component {
                                    bsStyle="success"
                                    bsSize="lg"
                                    onClick={editCartHandler}><Glyphicon className="big_icon"
-                                                                              glyph="plus"/></Button>
+                                                                        glyph="plus"/></Button>;
 
         const statusBar = <CartHeaderItem purchase={purchase}
-                                               saveHandler={saveHandler}
-                                               deleteHandler={deleteHandler}
-                                               completedArticles={completedArticles}
-                                               totalArticles={purchase.cartArticles.length}/>;
+                                          saveHandler={saveHandler}
+                                          deleteHandler={deleteHandler}
+                                          completedArticles={completedArticles}
+                                          totalArticles={purchase.cartArticles.length}/>;
+
+        let secondToArticles = undefined;
+        if (purchase.cartArticles.length > 4) {
+            secondToArticles = <Button className="big_button"
+                                       bsStyle="success"
+                                       bsSize="lg"
+                                       onClick={editCartHandler}><Glyphicon className="big_icon"
+                                                                            glyph="plus"/></Button>;
+        }
+
         let cartItem;
         if (purchase) {
             cartItem = purchase.cartArticles.map((article) => {
@@ -44,7 +53,7 @@ export default class CartArticles extends React.Component {
                     <Table hover className="cartArticles">
                         {cartItem}
                     </Table>
-                    {toArticles}
+                    {secondToArticles}
                 </div>
             );
         }
