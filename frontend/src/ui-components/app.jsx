@@ -25,7 +25,10 @@ import backToCarts from "../actions/back-to-carts-action";
 import backToCartArticles from "../actions/back-to-cartArticles-action";
 import deleteCart from "../actions/delete-purchase-action";
 import editCart from "../actions/edit-cart-action";
+import editCartArticle from "../actions/edit-cartArticle-action"
+import backToPurchase from "../actions/back-to-purchase-action"
 import {Col, Grid, Row} from "react-bootstrap";
+import EditCartArticle from "./editCartArticle";
 
 
 export default class App extends React.Component {
@@ -120,6 +123,14 @@ export default class App extends React.Component {
         editCart();
     }
 
+    _onEditCartArticleClicked(ev, cartArticle) {
+        editCartArticle(cartArticle);
+    }
+
+    _onBackToPurchaseClicked(ev) {
+        backToPurchase(ev);
+    }
+
     render() {
         const state = this.state;
 
@@ -129,12 +140,14 @@ export default class App extends React.Component {
         let categories = undefined;
         let cartNameInput = undefined;
         let actionPanel = undefined;
+        let cartArticleInEdit = undefined;
         const renderCartNameInput = state.data.renderCartNameInput;
         const renderArticles = state.data.renderArticles;
         const renderCategories = state.data.renderCategories;
         const renderPurchase = state.data.renderPurchase;
         const renderActionPanel = state.data.renderActionPanel;
         const renderCarts = state.data.renderCarts;
+        const renderEditCartArticle = state.data.renderEditCartArticle;
         const header = <Header backHandler={this._onBackToCartsClicked}/>
 
         if (renderCarts) {
@@ -154,7 +167,8 @@ export default class App extends React.Component {
                                      editCartHandler={this._onEditCartClicked}
                                      completedArticles={state.data.completedArticles}
                                      backHandler={this._onBackToCartsClicked}
-                                     deleteHandler={this._onDeleteClicked}/>
+                                     deleteHandler={this._onDeleteClicked}
+                                     onEditClicked={this._onEditCartArticleClicked}/>
         }
 
         if (renderArticles) {
@@ -164,6 +178,14 @@ export default class App extends React.Component {
                                 categoryOptions={state.data.categoryOptions}
                                 backToCartArticles={this._onBackToCartArticles}
                                 donkeyName={state.data.purchase.name}/>
+        }
+
+        if (renderEditCartArticle) {
+            cartArticleInEdit = <EditCartArticle purchase={state.data.purchase}
+                                                 backHandler={this._onBackToPurchaseClicked}
+                                                 article={state.data.selectedArticle}
+                                                 addHandler={(e, article) => this._onAddClicked(e, article)}
+                                                 removeOneHandler={(e, article) => this._onRemoveOneClicked(e, article)}/>
         }
 
 
@@ -193,7 +215,7 @@ export default class App extends React.Component {
                                  options={state.data.categoryOptions}/>
         }
 
-        return (<div className="container-fluid">
+        return (<div className="container-fluid app">
 
                 {header}
 
@@ -205,6 +227,7 @@ export default class App extends React.Component {
                         <Col xs={12}>{purchase}</Col>
                         <Col xs={12}>{articles}</Col>
                         <Col xs={12}>{cartNameInput}</Col>
+                        <Col xs={12}>{cartArticleInEdit}</Col>
 
                     </Row>
 

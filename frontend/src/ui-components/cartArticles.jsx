@@ -6,7 +6,7 @@ import {Button, Glyphicon, Table} from "react-bootstrap";
 export default class CartArticles extends React.Component {
 
     render() {
-        const {addHandler, removeOneHandler, removeArticleHandler, saveHandler, doneHandler, purchase, editCartHandler, completedArticles, backHandler, deleteHandler} = this.props;
+        const {addHandler, removeOneHandler, removeArticleHandler, saveHandler, doneHandler, purchase, editCartHandler, completedArticles, backHandler, deleteHandler, onEditClicked} = this.props;
 
 
         const backButton = <Button className="big_button"
@@ -14,13 +14,13 @@ export default class CartArticles extends React.Component {
                                    bsSize="lg"
                                    onClick={backHandler}><Glyphicon className="big_icon" glyph="chevron-left"/></Button>
 
-        const editCartArticles = <Button className="big_button"
-                                         bsStyle="success"
-                                         bsSize="lg"
-                                         onClick={editCartHandler}><Glyphicon className="big_icon"
+        const toArticles = <Button className="big_button"
+                                   bsStyle="success"
+                                   bsSize="lg"
+                                   onClick={editCartHandler}><Glyphicon className="big_icon"
                                                                               glyph="plus"/></Button>
 
-        const cartHeaderItem = <CartHeaderItem purchase={purchase}
+        const statusBar = <CartHeaderItem purchase={purchase}
                                                saveHandler={saveHandler}
                                                deleteHandler={deleteHandler}
                                                completedArticles={completedArticles}
@@ -32,18 +32,19 @@ export default class CartArticles extends React.Component {
                                   addHandler={addHandler}
                                   removeOneHandler={removeOneHandler}
                                   removeArticleHandler={removeArticleHandler}
-                                  doneHandler={doneHandler}/>);
+                                  doneHandler={doneHandler}
+                                  onEditClicked={onEditClicked}/>);
             });
 
             return (
                 <div>
                     {backButton}
-                    {cartHeaderItem}
-                    {editCartArticles}
+                    {statusBar}
+                    {toArticles}
                     <Table hover className="cartArticles">
                         {cartItem}
                     </Table>
-                    {editCartArticles}
+                    {toArticles}
                 </div>
             );
         }

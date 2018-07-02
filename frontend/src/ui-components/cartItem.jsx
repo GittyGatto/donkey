@@ -1,20 +1,14 @@
 import React, {Component} from 'react';
-import {Badge, Button, ButtonGroup, Checkbox, Glyphicon} from "react-bootstrap";
+import {Badge, Button, ButtonGroup, Glyphicon} from "react-bootstrap";
 
 class CartItem extends Component {
     render() {
 
-        const {addHandler, removeOneHandler, removeArticleHandler, doneHandler, article} = this.props;
+        const {removeArticleHandler, doneHandler, onEditClicked, article} = this.props;
 
         return (<tbody className={"cart_article_" + article.done}
                        onClick={(ev) => doneHandler(ev, article)}>
         <tr>
-            <td>
-                <Checkbox className="cart_item_checkbox"
-                          onChange={(ev) => doneHandler(ev, article)}
-                          checked={article.done}>
-                </Checkbox>
-            </td>
             <td><Badge className="big_badge">{this.props.article.amount}</Badge></td>
             <td>{this.props.article.articleName}</td>
             <td>
@@ -22,21 +16,17 @@ class CartItem extends Component {
 
                     <Button className="cart_item_button"
                             bsSize="lg"
-                            onClick={(ev) => addHandler(ev, article)}>
-                        <Glyphicon className="big_icon green"
-                                   glyph="plus-sign"/></Button>
-
-                    <Button className="cart_item_button"
-                            bsSize="lg"
-                            onClick={(ev) => removeOneHandler(ev, article)}>
-                        <Glyphicon className="big_icon orange"
-                                   glyph="minus-sign"/></Button>
-
-                    <Button className="cart_item_button"
-                            bsSize="lg"
+                            bsStyle="danger"
                             onClick={(ev) => removeArticleHandler(ev, article)}>
-                        <Glyphicon className="big_icon red"
+                        <Glyphicon className="big_icon"
                                    glyph="remove"/></Button>
+
+                    <Button className="cart_item_button"
+                            bsStyle="primary"
+                            bsSize="lg"
+                            onClick={(ev) => onEditClicked(ev, article)}>
+                        <Glyphicon className="big_icon"
+                                   glyph="edit"/></Button>
 
                 </ButtonGroup>
             </td>

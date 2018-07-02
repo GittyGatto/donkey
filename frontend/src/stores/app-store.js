@@ -8,6 +8,7 @@ class AppStore {
             renderSaveButton: false,
             renderBackButton: false,
             renderDeleteButton: false,
+            renderEditCartArticle: false,
 
             renderCarts: false,
             carts: [],
@@ -22,6 +23,7 @@ class AppStore {
             articles: [],
             filteredArticles: [],
             selectedArticle: '',
+            cartArticleInEdit: {},
 
             renderPurchase: false,
             purchase: [],
@@ -163,6 +165,20 @@ class AppStore {
         this.update({});
     }
 
+    handleEditCartArticleClicked(ev) {
+        this.data.renderPurchase = false;
+        this.data.renderArticles = false;
+        this.data.selectedArticle = ev.article;
+        this.data.renderEditCartArticle = true;
+        this.update({});
+    }
+
+    handleBackToPurchaseClicked() {
+        this.data.renderEditCartArticle = false;
+        this.data.renderPurchase = true;
+        this.update({});
+    }
+
     update(ev) {
         this.notifyListeners(ev);
     }
@@ -220,10 +236,15 @@ class AppStore {
     checkArticle(article) {
         let cartArticles = this.data.purchase.cartArticles;
         const index = this.getCartArticleIndex(article.articleName);
-        if (cartArticles[index].done) {
-            cartArticles[index].done = false;
-        } else {
-            cartArticles[index].done = true;
+
+        if (index >= 0) {
+
+            if (cartArticles[index].done) {
+                cartArticles[index].done = false;
+            } else {
+                cartArticles[index].done = true;
+            }
+
         }
         return this.data.purchase.cartArticles = cartArticles;
     }
