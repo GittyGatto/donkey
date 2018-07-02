@@ -25,7 +25,7 @@ export default class Article extends React.Component {
         const backButton = <Button className="big_button"
                                    bsStyle="info"
                                    bsSize="lg"
-                                   onClick={backToCartArticles}><Glyphicon className="big_icon" glyph="ok"/></Button>;
+                                   onClick={backToCartArticles}><Glyphicon className="big_icon" glyph="chevron-left"/></Button>;
 
         let articleItem;
         if (articles) {
