@@ -15,18 +15,18 @@ class CartItem extends Component {
                 <ButtonGroup>
 
                     <Button className="cart_item_button"
-                            bsSize="lg"
-                            bsStyle="danger"
-                            onClick={(ev) => removeArticleHandler(ev, article)}>
-                        <Glyphicon className="big_icon"
-                                   glyph="remove"/></Button>
-
-                    <Button className="cart_item_button"
                             bsStyle="primary"
                             bsSize="lg"
                             onClick={(ev) => onEditClicked(ev, article)}>
                         <Glyphicon className="big_icon"
                                    glyph="edit"/></Button>
+
+                    <Button className="cart_item_button"
+                            bsSize="lg"
+                            bsStyle="danger"
+                            onClick={(ev) => removeArticleHandler(ev, article)}>
+                        <Glyphicon className="big_icon"
+                                   glyph="remove"/></Button>
 
                 </ButtonGroup>
             </td>
