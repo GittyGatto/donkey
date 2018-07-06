@@ -22,4 +22,10 @@ public class ArticleBusinessService {
         List<ArticleEntity> articleEntities = this.articleRepository.findAll();
         return articleTransformerService.toArticles(articleEntities);
     }
+
+    public ArticleDto saveArticle(ArticleDto articleDto) {
+        ArticleEntity articleEntity = articleTransformerService.toArticleEntity(articleDto);
+        ArticleEntity storedArticleEntity = articleRepository.save(articleEntity);
+        return articleTransformerService.toArticleDto(storedArticleEntity);
+    }
 }

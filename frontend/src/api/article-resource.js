@@ -38,7 +38,7 @@ export default {
             }
         });
     },
-    savePurchase: function savePurchase(request, successCallback, errorCallback) {
+    saveArticle: function saveArticle(request, successCallback, errorCallback) {
         pre();
         var newRequest = request.data;
         xhr({

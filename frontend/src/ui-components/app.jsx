@@ -1,9 +1,7 @@
 import React from 'react';
 import appStore from '../stores/app-store';
 import uuid from 'uuid';
-import Select from 'react-select';
-import CartActionPanel from "./panelButtons";
-import CartNameInput from "./cartNameInput";
+import TextInputFiled from "./textInputFiled";
 import CartArticles from "./cartArticles";
 import Article from "./article";
 import CartSelection from "./cartSelection";
@@ -12,7 +10,10 @@ import 'react-select/dist/react-select.css';
 import '../../styles/index.scss';
 import addArticle from '../actions/add-article-action';
 import newCart from "../actions/new-cart-action";
+import newArticle from "../actions/new-article-action";
 import cartNameChanged from "../actions/cart-name-changed-action";
+import articleCategoryChanged from "../actions/article-category-changed-action"
+import articleNameChanged from "../actions/article-name-changed-action";
 import getCategoryArticles from '../actions/get-category-articles-action';
 import removeOneArticle from '../actions/remove-one-article-action';
 import removeArticle from '../actions/remove-article-action'
@@ -21,6 +22,7 @@ import savePurchase from '../actions/save-purchase-action';
 import getPurchase from "../actions/get-purchase-action";
 import checkedArticle from "../actions/checked-article-action"
 import saveNewCart from "../actions/save-new-cart-action";
+import saveNewArticle from "../actions/save-new-article-action"
 import backToCarts from "../actions/back-to-carts-action";
 import backToCartArticles from "../actions/back-to-cartArticles-action";
 import deleteCart from "../actions/delete-purchase-action";
@@ -29,6 +31,7 @@ import editCartArticle from "../actions/edit-cartArticle-action"
 import backToPurchase from "../actions/back-to-purchase-action"
 import {Col, Grid, Row} from "react-bootstrap";
 import EditCartArticle from "./editCartArticle";
+import EditArticlePage from "./editArticlePage";
 
 
 export default class App extends React.Component {
@@ -61,13 +64,23 @@ export default class App extends React.Component {
         getCategoryArticles(category.name);
     }
 
+    _onArticleCategoryChanged(ev){
+        articleCategoryChanged(ev.value);
+    }
+
     _onArticleClicked(ev, article) {
         addArticle(article);
     }
 
-    _onSubmitClicked(ev) {
+    _onSubmitCartClicked(ev) {
         saveNewCart({
             data: {name: appStore.data.cartNameInput, uuid: uuid.v4(), cartArticles: []}
+        });
+    }
+
+    _onSubmitArticleClicked(ev) {
+        saveNewArticle({
+            data: {articleName: appStore.data.articleNameInput, articleUuid: uuid.v4(), categoryName: appStore.data.articleCategorySelection}
         });
     }
 
@@ -85,6 +98,10 @@ export default class App extends React.Component {
         newCart(ev);
     }
 
+    _onNewArticleClicked(ev) {
+        newArticle(ev);
+    }
+
     _onAddClicked(e, article) {
         addArticle(article);
     }
@@ -99,6 +116,10 @@ export default class App extends React.Component {
 
     _onCartNameChanged(ev) {
         cartNameChanged(ev.target.value);
+    }
+
+    _onArticleNameChanged(ev) {
+        articleNameChanged(ev.target.value);
     }
 
     _onBackToCartsClicked(ev) {
@@ -137,17 +158,16 @@ export default class App extends React.Component {
         let carts = undefined;
         let purchase = undefined;
         let articles = undefined;
-        let categories = undefined;
         let cartNameInput = undefined;
-        let actionPanel = undefined;
+        let articleNameInput = undefined;
         let cartArticleInEdit = undefined;
         const renderCartNameInput = state.data.renderCartNameInput;
         const renderArticles = state.data.renderArticles;
-        const renderCategories = state.data.renderCategories;
         const renderPurchase = state.data.renderPurchase;
-        const renderActionPanel = state.data.renderActionPanel;
         const renderCarts = state.data.renderCarts;
         const renderEditCartArticle = state.data.renderEditCartArticle;
+        const renderArticleNameInput = state.data.renderArticleNameInput;
+
         const header = <Header backHandler={this._onBackToCartsClicked}/>
 
         if (renderCarts) {
@@ -177,7 +197,8 @@ export default class App extends React.Component {
                                 categoryChangeHandler={(e, category) => this._onCategoryChange(e, category)}
                                 categoryOptions={state.data.categoryOptions}
                                 backToCartArticles={this._onBackToCartArticles}
-                                donkeyName={state.data.purchase.name}/>
+                                donkeyName={state.data.purchase.name}
+                                onNewArticleClicked={this._onNewArticleClicked}/>
         }
 
         if (renderEditCartArticle) {
@@ -188,31 +209,22 @@ export default class App extends React.Component {
                                                  removeOneHandler={(e, article) => this._onRemoveOneClicked(e, article)}/>
         }
 
-
-        if (renderActionPanel) {
-            actionPanel = <CartActionPanel className="form-field-name"
-                                           saveHandler={this._onSaveClicked}
-                                           newCartHandler={this._onNewCartClicked}
-                                           backHandler={this._onBackToCartsClicked}
-                                           deleteHandler={this._onDeleteClicked}
-                                           renderNewButton={state.data.renderNewButton}
-                                           renderSaveButton={state.data.renderSaveButton}
-                                           renderBackButton={state.data.renderBackButton}
-                                           renderDeleteButton={state.data.renderDeleteButton}/>
+        if (renderArticleNameInput) {
+            articleNameInput = <EditArticlePage submitHandler={this._onSubmitArticleClicked}
+                                                inputChanged={this._onArticleNameChanged}
+                                                categoryChange={this._onArticleCategoryChanged}
+                                                title="Artikel"
+                                                placeholder="My little article name"
+                                                categoryOptions={state.data.categoryOptionsAsLabelValue}
+                                                categorySelection={state.data.articleCategorySelection}
+                                                cartName={state.data.purchase.name}/>
         }
-
 
         if (renderCartNameInput) {
-            cartNameInput = <CartNameInput submitHandler={this._onSubmitClicked}
-                                           cartNameChanged={this._onCartNameChanged}/>
-        }
-
-
-        if (renderCategories) {
-            categories = <Select className="form-field-name"
-                                 value={state.data.selectedCategory}
-                                 onChange={(e) => this._onCategoryChange(e)}
-                                 options={state.data.categoryOptions}/>
+            cartNameInput = <TextInputFiled submitHandler={this._onSubmitCartClicked}
+                                            inputChanged={this._onCartNameChanged}
+                                            title="Donkey Name"
+                                            placeholder="My little donkey list"/>
         }
 
         return (<div className="container-fluid app">
@@ -228,6 +240,7 @@ export default class App extends React.Component {
                         <Col xs={12}>{articles}</Col>
                         <Col xs={12}>{cartNameInput}</Col>
                         <Col xs={12}>{cartArticleInEdit}</Col>
+                        <Col xs={12}>{articleNameInput}</Col>
 
                     </Row>
 

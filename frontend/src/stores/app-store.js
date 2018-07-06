@@ -15,6 +15,7 @@ class AppStore {
 
             renderCategories: false,
             categoryOptions: [],
+            categoryOptionsAsLabelValue: [],
             selectedCategory: 'Alle',
 
             completedArticles: undefined,
@@ -31,6 +32,11 @@ class AppStore {
 
             renderCartNameInput: false,
             cartNameInput: '',
+
+            renderArticleNameInput: false,
+            articleCategory: {},
+            articleNameInput: '',
+            articleCategorySelection: '',
         };
     }
 
@@ -50,6 +56,14 @@ class AppStore {
 
     handlePurchaseSaved(ev) {
         console.log('saved');
+    }
+
+    handleNewArticleSaved(ev){
+        console.log('article saved');
+        this.addArticleToArticles(ev.data);
+        this.data.renderArticleNameInput = false;
+        this.data.renderArticles = true;
+        this.update({});
     }
 
     handleArticleRemoved(ev) {
@@ -98,6 +112,15 @@ class AppStore {
         this.update({});
     }
 
+    handleNewArticleClicked(ev) {
+        this.getCategoryOptionsAsLabelValue();
+        this.data.renderArticleNameInput = true;
+
+        this.data.renderArticles = false;
+
+        this.update({});
+    }
+
     handleCartArticlesReceived(ev) {
         this.setPurchase(ev.data);
         this.data.completedArticles = this.getCompletedArticles(this.data.purchase.cartArticles);
@@ -135,6 +158,16 @@ class AppStore {
 
     handleCartNameChanged(ev) {
         this.data.cartNameInput = ev.value;
+        this.update({});
+    }
+
+    handleArticleCategoryChanged(ev){
+        this.data.articleCategorySelection = ev.category;
+        this.update({});
+    }
+
+    handleArticleNameChanged(ev) {
+        this.data.articleNameInput = ev.value;
         this.update({});
     }
 
@@ -181,19 +214,6 @@ class AppStore {
 
     update(ev) {
         this.notifyListeners(ev);
-    }
-
-    cartEditToggle() {
-        if (this.data.editToggle) {
-            this.data.renderPurchase = true;
-            this.data.renderArticles = true;
-            this.data.renderDoneBox = false;
-        } else {
-            this.data.renderPurchase = true;
-            this.data.renderArticles = false;
-            this.data.renderDoneBox = true;
-        }
-        this.data.editToggle = !this.data.editToggle;
     }
 
     setPurchase(cartName) {
@@ -269,10 +289,16 @@ class AppStore {
         this.data.purchase.cartArticles = cartArticles;
     }
 
-    addCartToCarts(NewCart) {
+    addCartToCarts(newCart) {
         let carts = this.data.carts;
-        carts.push(NewCart);
+        carts.push(newCart);
         this.data.carts = carts;
+    }
+
+    addArticleToArticles(newArticle){
+        let articles = this.data.articles;
+        articles.push(newArticle);
+        this.data.filteredArticles =articles;
     }
 
     removePurchase() {
@@ -318,6 +344,17 @@ class AppStore {
         } else {
             return false;
         }
+    }
+
+    getCategoryOptionsAsLabelValue() {
+        const categoryOptions = this.data.categoryOptions;
+
+        let labelValues = [];
+        categoryOptions.forEach(e => {
+            const labelValue = {label: e.name, value: e.name, clearableValue: false};
+            labelValues.push(labelValue);
+        })
+        this.data.categoryOptionsAsLabelValue = labelValues;
     }
 }
 
